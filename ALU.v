@@ -36,4 +36,13 @@
 // 0111 LO ? Unsigned Lower
 // 1000 HS ? Unsigned Higher or Same
 
+//-------
+// Flags
+//-------
+// 4 one-bit flags {N, Z, C, V}
+// If N == 1, result is negative
+// If Z == 1, result is zero
+// If C == 1, result generates a carry
+// If V == 1, resut generates an overflow
+
 //ALU Main Module
