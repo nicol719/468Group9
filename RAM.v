@@ -1,6 +1,7 @@
 //RAM section here
 //Read and write operations of memory. 
 // Memory size is 8 words of 16 bits each. 
+// TODO: Make ram 32 bits
 module memory (Enable,ReadWrite,Address,DataIn,DataOut);
 input  Enable,ReadWrite;
 input [15:0] DataIn;
