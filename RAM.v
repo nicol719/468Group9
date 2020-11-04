@@ -4,15 +4,15 @@
 // TODO: Make ram 32 bits
 module memory (Enable,ReadWrite,Address,DataIn,DataOut);
 input  Enable,ReadWrite;
-input [15:0] DataIn;
-input [2:0] Address;
-output reg[15:0] DataOut;
-reg [15:0] Mem [0:7];         //8 x 16 memory
+input [15:0] DataIn;  //Should be [31:0]
+input [2:0] Address;  // Todo: match address to design requirements (I think it should be [15:0])
+output reg[15:0] DataOut; // [31:0]
+reg [15:0] Mem [0:7];     //8 x 16 memory -> reg [31:0] Mem [0:65535]; // 2^16 by 32 memory
 always @*
 	if (Enable)
 		if (ReadWrite) 
 			DataOut = Mem[Address];  //Read
 		else
 			Mem[Address] = DataIn;   //Write
-	else DataOut = 16'bz;   //High imped 
+	else DataOut = 16'bz;   //High imped  -> else DataOut = 32'bz; //High imped
 endmodule
