@@ -1,5 +1,5 @@
 //Todo: Convert testbench to 32 bit
-module test_memory;
+module test_write_memory;
     reg  enable,ReadWrite;
     reg [15:0] DataIn;
     reg [2:0] Address;

@@ -1,7 +1,7 @@
 
 //Todo make testbench 32 bits
 
-module test_memory;
+module test_read_memory;
     reg  enable,R_W;
     reg [15:0] D_In;
     reg [2:0] Address;
