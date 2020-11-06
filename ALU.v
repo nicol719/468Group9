@@ -72,7 +72,7 @@
 //ALU Main Module
 //================
 // Code here
-module ALU ()
+module ALU (OP_Code, input_register1, input_register2, output_register);
   {
     //code goes here 
   }
