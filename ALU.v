@@ -73,7 +73,7 @@
 //================
 // SILVERFISH SECTION
 module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, flags);
-  {
+  
     input [31:0] source_1, source_2; //16 bit source registers 1 and 2
     input [15:4] shift_bits; //immediate value or shift bits seems to so from 16 to 5 bits
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
@@ -130,6 +130,8 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     else if (OP_Code == 4'b1011)
       begin
         //CMP R1 R2 compare R1 and R2 and set the status flags
+    
+        
       end
     else if (OP_Code == 4'b1100)
       begin
@@ -152,14 +154,63 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
         //retry perhaps? or perform a no operation? or print an error? this is here to prevent latching
       end
     
-    
+  //Check conditional codes
+  
+  if (conditional == 4'b0000)
+    begin
+      //No condition
+    end
+  else if (conditional == 4'b0001)
+    begin
+      //Equal
+    end
+  else if (conditional == 4'b0010)
+    begin
+      //Greater than
+    end
+  else if (conditional == 4'b0011)
+    begin
+      //Less than
+    end
+  else if (conditional == 4'b0100)
+    begin
+      //Greater than or equal to
+    end
+  else if (conditional == 4'b0101)
+    begin
+      //Less than or equal to
+    end
+  else if (conditional == 4'b0110)
+    begin
+      //Unsigned higher
+    end
+  else if (conditional == 4'b0111)
+    begin
+      //unsigned lower
+    end
+  else if (conditional == 4'b1000)
+    begin
+      //unsigned higher or same
+    end
+  else
+    begin
+      //dont care/error
+    end
+  
+  
+  
+  
+  
+  
+  
+  
     
     
     endmodule
     
     
     
-  }
+  
 
 //==================
 // 32-bit adder
