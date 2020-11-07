@@ -163,34 +163,53 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
   else if (conditional == 4'b0001)
     begin
       //Equal
+      source_1 = source_2;
     end
   else if (conditional == 4'b0010)
     begin
       //Greater than
+      source_1 > source_2
     end
   else if (conditional == 4'b0011)
     begin
       //Less than
+      source_1 < source_2;
     end
   else if (conditional == 4'b0100)
     begin
       //Greater than or equal to
+      source_1 >= source_2
     end
   else if (conditional == 4'b0101)
     begin
       //Less than or equal to
+      source_1 =< source_2
     end
   else if (conditional == 4'b0110)
     begin
       //Unsigned higher
+      if (source_1 - source_2 > 0)
+        $unsigned(source_1);
+      else if (source_2 - source_1 > 0)
+        $unsigned(source_2);
     end
   else if (conditional == 4'b0111)
     begin
       //unsigned lower
+      if (source_1 - source_2 > 0)
+        $unsigned(source_2);
+      else if (source_2 - source_1 > 0)
+        $unsigned(source_1);
     end
   else if (conditional == 4'b1000)
     begin
       //unsigned higher or same
+      if (source_1 - source_2 > 0)
+        $unsigned(source_1);
+      else if (source_2 - source_1 > 0)
+        $unsigned(source_2);
+      else if (source_2 - source_1 = 0)
+        $unsigned(source_2, source_1);      
     end
   else
     begin
