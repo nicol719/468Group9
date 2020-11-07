@@ -71,11 +71,146 @@
 //================
 //ALU Main Module
 //================
-// Code here
-module ALU (OP_Code, input_register1, input_register2, output_register);
-  {
-    //code goes here 
-  }
+// SILVERFISH SECTION
+module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, flags);
+  
+    input [31:0] source_1, source_2; //16 bit source registers 1 and 2
+    input [15:4] shift_bits; //immediate value or shift bits seems to so from 16 to 5 bits
+    input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
+    input S; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
+    
+    output [31:0] Result; //32 bit output
+    output [3:0] flags; //4 flag bits order: N Z C V
+    
+    //Use if statements to call modules, case does not work unlike in C languages
+    if (OP_Code == 4'b0000)
+      begin
+        ///ADD module
+      end
+    else if (OP_Code == 4'b0001)
+      begin
+        //SUB module
+      end
+    else if (OP_Code == 4'b0010)
+      begin
+        //MUL module
+      end
+    else if (OP_Code == 4'b0011)
+      begin
+        //ORR module
+      end
+    else if (OP_Code == 4'b0100)
+      begin
+        //AND module
+      end
+    else if (OP_Code == 4'b0101)
+      begin
+        //EOR/XOR module
+      end
+    else if (OP_Code == 4'b0110)
+      begin
+        //MOV R1, n Initializes R1 with an immediate value of n
+      end
+    else if (OP_Code == 4'b0111)
+      begin
+        //MOV R1 R2 copy R2 into R1
+      end
+    else if (OP_Code == 4'b1000)
+      begin
+        //MOV R1 R2 LSR #n copy R2 into R1 shifted right by n
+      end
+    else if (OP_Code == 4'b1001)
+      begin
+        //MOV R1 R2 LSL #n copy R2 into R1 shifted left by n
+      end
+    else if (OP_Code == 4'b1010)
+      begin
+        //MOV R1 R2 Rotated Right by n bits
+      end
+    else if (OP_Code == 4'b1011)
+      begin
+        //CMP R1 R2 compare R1 and R2 and set the status flags
+    
+        
+      end
+    else if (OP_Code == 4'b1100)
+      begin
+        //ADR R1 with a 16 bit address n
+      end
+    else if (OP_Code == 4'b1101)
+      begin
+        //LDR R2 [R1] load R2 with the contents at memory address R1
+      end
+    else if (OP_Code == 4'b1110)
+      begin
+        //STR R2, [R1] Store R2's contents at memory address R1
+      end
+    else if (OP_Code == 4'b1111)
+      begin
+        //NOP no operation, skip
+      end
+    else
+      begin
+        //retry perhaps? or perform a no operation? or print an error? this is here to prevent latching
+      end
+    
+  //Check conditional codes
+  
+  if (conditional == 4'b0000)
+    begin
+      //No condition
+    end
+  else if (conditional == 4'b0001)
+    begin
+      //Equal
+    end
+  else if (conditional == 4'b0010)
+    begin
+      //Greater than
+    end
+  else if (conditional == 4'b0011)
+    begin
+      //Less than
+    end
+  else if (conditional == 4'b0100)
+    begin
+      //Greater than or equal to
+    end
+  else if (conditional == 4'b0101)
+    begin
+      //Less than or equal to
+    end
+  else if (conditional == 4'b0110)
+    begin
+      //Unsigned higher
+    end
+  else if (conditional == 4'b0111)
+    begin
+      //unsigned lower
+    end
+  else if (conditional == 4'b1000)
+    begin
+      //unsigned higher or same
+    end
+  else
+    begin
+      //dont care/error
+    end
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+    endmodule
+    
+    
+    
+  
 
 //==================
 // 32-bit adder
@@ -141,3 +276,13 @@ module ALU (OP_Code, input_register1, input_register2, output_register);
 //================
 // Other small modules that cover the remaining functions of the 15-instruction set (such as MOV and LDR).
 //================
+  
+  //MOV
+  
+  //LDR
+  
+  //NOP
+  
+  //STR
+  
+  //ADR
