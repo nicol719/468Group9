@@ -71,10 +71,26 @@
 //================
 //ALU Main Module
 //================
-// Code here
-module ALU (OP_Code, input_register1, input_register2, output_register);
+// SILVERFISH SECTION
+module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, flags);
   {
-    //code goes here 
+    input [31:0] source_1, source_2; //16 bit source registers 1 and 2
+    input [15:4] shift_bits; //immediate value or shift bits seems to so from 16 to 5 bits
+    input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
+    input S; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
+    
+    output [31:0] Result; //32 bit output
+    output [3:0] flags; //4 flag bits order: N Z C V
+    
+    //Use a case statement to call the respective sub-module based on OP_Codes
+    
+    
+    
+    
+    
+    
+    
+    
   }
 
 //==================
@@ -141,3 +157,13 @@ module ALU (OP_Code, input_register1, input_register2, output_register);
 //================
 // Other small modules that cover the remaining functions of the 15-instruction set (such as MOV and LDR).
 //================
+  
+  //MOV
+  
+  //LDR
+  
+  //NOP
+  
+  //STR
+  
+  //ADR
