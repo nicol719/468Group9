@@ -1,6 +1,6 @@
 // Memory Access Block Testbench
+// By GN
 //Todo:
-// use testbench
 // standardize variables
 
 // Instruction			Description													Op Code		Memory Access Block's Job
@@ -29,7 +29,7 @@ module test_memory_access_block;
 	reg [15:0] PCInstruction_t;
 	reg [31:0] Source1_t, Source2_t, Result_t, DataIn_t;
 	wire ReadWrite_t;
-	wire [15:0] Address_t;
+	wire [31:0] Address_t;
 	wire [31:0] DataOut_t, LDR_t;
 	
 	memory_access_block test_block(DataIn_t, DataOut_t, ReadWrite_t, Address_t, LDR_t, Source1_t, Source2_t, Result_t, OpCode_t, PCInstruction_t);
@@ -38,56 +38,62 @@ module test_memory_access_block;
 	begin
 	//Test cases
 	
-	// do nothing op code
-	// LDR should be Z's
-	// Ram should stay in read mode
+	// Do nothing op code
+	// LDR should be Result (Z's should be passed from ALU)
+	// Ram should stay in read mode (1)
 	// Don't care about address
 	// Don't care about DataOut
-	OpCode_t = 4'b1111; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	OpCode_t = 4'b1111; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
 	
 	// Write to ram op code
-	// LDR should be Z's
-	// Ram should be in write mode
+	// LDR should be Result (Z's should be passed from ALU)
+	// Ram should be in write mode (0)
 	// Address should be Source 1
 	// DataOut should be Source 2
-	#5 OpCode_t = 4'b1110; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1110; PCInstruction_t = 16'hAAAA; Source1_t = 32'hBBBBAAAA; Source2_t = 32'hCCCCBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1110; PCInstruction_t = 16'hAAAA; Source1_t = 32'hDDDDAAAA; Source2_t = 32'hDDDDBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1110; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1110; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hBBBBAAAA; Source2_t = 32'hCCCCBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1110; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hDDDDAAAA; Source2_t = 32'hDDDDBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
 	
 	// Read from ram op code
 	// LDR should be DataIn
-	// Ram should stay in read mode
+	// Ram should stay in read mode (1)
 	// Address should be Source 1
 	// Don't care about DataOut
-	#5 OpCode_t = 4'b1101; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1101; PCInstruction_t = 16'hAAAA; Source1_t = 32'hBBBBAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEAAAA;
-	#5 OpCode_t = 4'b1101; PCInstruction_t = 16'hAAAA; Source1_t = 32'hCCCCAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEBBBB;
+	#5 OpCode_t = 4'b1101; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1101; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hBBBBAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEAAAA;
+	#5 OpCode_t = 4'b1101; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hCCCCAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEBBBB;
 	
 	// Compare op code (should be the same as do nothing op code)
-	// LDR should be Z's
-	// Ram should stay in read mode
+	// LDR should be Result (Z's should be passed from ALU)
+	// Ram should stay in read mode (1)
 	// Don't care about address
 	// Don't care about DataOut
-	#5 OpCode_t = 4'b1011; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1011; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCCCCCC; DataIn_t = 32'hEEEEEEEE;
 	
 	// Rest of op codes (should be handled the same)
 	// Result should be passed through LDR_t
 	// Ram should stay in read mode
 	// Don't care about address
 	// Don't care about DataOut
-	#5 OpCode_t = 4'b0000; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0000; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0001; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0001; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0010; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0010; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0011; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0011; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0100; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0100; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0101; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0101; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0110; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0110; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b0111; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0111; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1000; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1000; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1001; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1001; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1010; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1010; DataIn_t = 32'hEEEEEEEE;
-	#5 OpCode_t = 4'b1100; PCInstruction_t = 16'hAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1100; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0000; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0000; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0001; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0001; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0010; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0010; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0011; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0011; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0100; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0100; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0101; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0101; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0110; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0110; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b0111; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC0111; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1000; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1000; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1001; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1001; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1010; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1010; DataIn_t = 32'hEEEEEEEE;
+	#5 OpCode_t = 4'b1100; PCInstruction_t = 32'hAAAAAAAA; Source1_t = 32'hAAAAAAAA; Source2_t = 32'hBBBBBBBB; Result_t = 32'hCCCC1100; DataIn_t = 32'hEEEEEEEE;
 	end	
+	
+	
+	initial
+	begin
+	$monitor($time, "\nINPUTS:\nOpCode = %b, PCI = %h, Source1 = %h, Source2 = %h, Result = %h, DataIn = %h\nOUTPUTS\n ReadWrite = %b, Address = %h, DataOut = %h, LDR = %h", OpCode_t, PCInstruction_t, Source1_t, Source2_t, Result_t, DataIn_t, ReadWrite_t, Address_t, DataOut_t, LDR_t);
+	end
 endmodule
 
 //--------------------------

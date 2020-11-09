@@ -21,9 +21,6 @@
 
 // by GN
 //Todo:
-// Compile
-// Build test bench
-// test
 // standardize variables
 module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, Source2, Result, OpCode, PCInstruction);
 	// Inputs
@@ -33,7 +30,7 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 	
 	// Outputs
 	output reg ReadWrite;
-	output [15:0] Address;
+	output [31:0] Address;
 	output [31:0] DataOut, LDR;
 	
 	//Internal registers
@@ -46,7 +43,7 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 	
 	//muxs
 	mux_2by1 ldr_mux(ldr_select, Result, DataIn, LDR);
-	mux_2by1 #(16) address_mux(address_select, Source1, PCInstruction, Address);
+	mux_2by1 address_mux(address_select, Source1, PCInstruction, Address);
 	
 	always @ (OpCode)
 	begin
@@ -107,7 +104,7 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 						address_select = 1'b0;
 					end
 			4'b1011:begin // CMP R1, R2
-						ldr_select = 1'bx; // Nothing is loaded into registers
+						ldr_select = 1'b1; // Nothing is loaded into registers (expect result z's from alu)
 						ReadWrite = 1'b1;
 						address_select = 1'b0;
 					end
@@ -122,17 +119,17 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 						address_select = 1'b1;  // Get ram address from source 1
 					end
 			4'b1110:begin // STR R2, [R1]
-						ldr_select = 1'bx; // Nothing is loaded into registers
+						ldr_select = 1'b1; // Nothing is loaded into registers (expect result z's from alu)
 						ReadWrite = 1'b0; // write to ram
 						address_select = 1'b1; // Get ram address from source 1
 					end
 			4'b1111:begin // NOP
-						ldr_select = 1'b1; // Nothing is loaded into registers
+						ldr_select = 1'b1; // Nothing is loaded into registers (expect result z's from alu)
 						ReadWrite = 1'b1;
 						address_select = 1'b0;						
 					end
 			default:begin
-						ldr_select = 1'bx; // Nothing is loaded into registers
+						ldr_select = 1'b1; // Nothing is loaded into registers (expect result z's from alu)
 						ReadWrite = 1'b1;
 						address_select = 1'b0;
 					end
