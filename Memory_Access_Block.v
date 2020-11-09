@@ -32,13 +32,13 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 	input [31:0] Source1, Source2, Result, DataIn;
 	
 	// Outputs
-	output ReadWrite
+	output reg ReadWrite;
 	output [15:0] Address;
 	output [31:0] DataOut, LDR;
 	
-	//Wires
-	wire ldr_select;
-	wire address_select;
+	//Internal registers
+	reg ldr_select;
+	reg address_select;
 	
 	// DataOut is only read by ram when ReadWrite = 1b'0 (op cod 4b'1110)
 	// so a constant assignment is ok.
@@ -150,5 +150,5 @@ module mux_2by1(Select, In1, In2, Out);
 	input [width-1:0] In1, In2;
 	output [width-1:0] Out; 
 
-	assign out = Select ? In1: In0;
+	assign out = Select ? In1: In2;
 endmodule
