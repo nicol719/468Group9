@@ -18,6 +18,8 @@
 // STR R2, [R1]			Store R2 at memory address R1								1110		Store data Source2 at ram address(Source1)
 // NOP					No Operation -Skip this instruction							1111		Do Nothing
 //
+
+// by GN
 module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, Source2, Result, OpCode, PCInstruction);
 	input [3:0] OpCode;
 	input [15:0] PCInstruction;
@@ -26,7 +28,62 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 	output [15:0] Address;
 	output [31:0] DataOut, LDR;
 	//todo: declare wires
+	wire [31:0] alu_to_ldr
 	
+	always @ (OpCode)
+	begin
+		case (OpCode)
+			4'b0000: begin
+						// Case statement here
+					end
+			4'b0001:begin
+						// Case statement here
+					end
+			4'b0010:begin
+						// Case statement here
+					end
+			4'b0011:begin
+						// Case statement here
+					end
+			4'b0100:begin
+						// Case statement here
+					end
+			4'b0101:begin
+						// Case statement here
+					end
+			4'b0110:begin
+						// Case statement here
+					end
+			4'b0111:begin
+						// Case statement here
+					end
+			4'b1000:begin
+						// Case statement here
+					end
+			4'b1001:begin
+						// Case statement here
+					end
+			4'b1010:begin
+						// Case statement here
+					end
+			4'b1011:begin
+						// Case statement here
+					end
+			4'b1100:begin
+						// Case statement here
+					end
+			4'b1101:begin
+						// Case statement here
+					end
+			4'b1110:begin
+						// Case statement here
+					end
+			4'b1111:begin
+						// Case statement here
+					end
+			
+		endcase
+	end
 	// memory access block code here
 	// mostly case statements based on op code
 	// Will need a 16 bit 2x1 mux and a 32 bit 2x1 mux
@@ -34,7 +91,7 @@ module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, So
 endmodule
 
 
-// 2 by 1 mux
+// 2 by 1 mux by GN
 module mux_2by1(Select, In1, In2, Out);
 	parameter width = 32;
 	input Select;
