@@ -20,73 +20,125 @@
 //
 
 // by GN
+//Todo:
+// Compile
+// Build test bench
+// test
+// standardize variables
 module memory_access_block(DataIn, DataOut, ReadWrite, Address, LDR, Source1, Source2, Result, OpCode, PCInstruction);
+	// Inputs
 	input [3:0] OpCode;
 	input [15:0] PCInstruction;
 	input [31:0] Source1, Source2, Result, DataIn;
+	
+	// Outputs
 	output ReadWrite
 	output [15:0] Address;
 	output [31:0] DataOut, LDR;
-	//todo: declare wires
-	wire [31:0] alu_to_ldr
+	
+	//Wires
+	wire ldr_select;
+	wire address_select;
+	
+	// DataOut is only read by ram when ReadWrite = 1b'0 (op cod 4b'1110)
+	// so a constant assignment is ok.
+	assign DataOut = Source2;
+	
+	//muxs
+	mux_2by1 ldr_mux(ldr_select, Result, DataIn, LDR);
+	mux_2by1 #(16) address_mux(address_select, Source1, PCInstruction, Address);
 	
 	always @ (OpCode)
 	begin
 		case (OpCode)
-			4'b0000: begin
-						// Case statement here
+			4'b0000: begin // ADD R1, R2, R3
+						ldr_select = 1'b1; // Send result to registers
+						ReadWrite = 1'b1; // Keep ram in read mode until we want to write to it.
+						address_select = 1'b0; //get address from pc access
 					end
-			4'b0001:begin
-						// Case statement here
+			4'b0001:begin // SUB R1, R2, R3
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0010:begin
-						// Case statement here
+			4'b0010:begin // MUL R1, R2, R3
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0011:begin
-						// Case statement here
+			4'b0011:begin // ORR R1, R2, R3
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0100:begin
-						// Case statement here
+			4'b0100:begin // AND R1, R2, R3
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0101:begin
-						// Case statement here
+			4'b0101:begin // EOR R1, R2, R3
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0110:begin
-						// Case statement here
+			4'b0110:begin // MOV R1, n
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b0111:begin
-						// Case statement here
+			4'b0111:begin // MOV R1, R2
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1000:begin
-						// Case statement here
+			4'b1000:begin // MOV R1, R2, LSR #n
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1001:begin
-						// Case statement here
+			4'b1001:begin // MOV R1, R2, LSL #n
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1010:begin
-						// Case statement here
+			4'b1010:begin // MOV R1, R2, ROR #n
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1011:begin
-						// Case statement here
+			4'b1011:begin // CMP R1, R2
+						ldr_select = 1'bx; // Nothing is loaded into registers
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1100:begin
-						// Case statement here
+			4'b1100:begin // ADR R1, n
+						ldr_select = 1'b1;
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
-			4'b1101:begin
-						// Case statement here
+			4'b1101:begin // LDR R2, [R1]
+						ldr_select = 1'b0; //Only case where ram data is loaded
+						ReadWrite = 1'b1; //Read from ram
+						address_select = 1'b1;  // Get ram address from source 1
 					end
-			4'b1110:begin
-						// Case statement here
+			4'b1110:begin // STR R2, [R1]
+						ldr_select = 1'bx; // Nothing is loaded into registers
+						ReadWrite = 1'b0; // write to ram
+						address_select = 1'b1; // Get ram address from source 1
 					end
-			4'b1111:begin
-						// Case statement here
+			4'b1111:begin // NOP
+						ldr_select = 1'b1; // Nothing is loaded into registers
+						ReadWrite = 1'b1;
+						address_select = 1'b0;						
+					end
+			default:begin
+						ldr_select = 1'bx; // Nothing is loaded into registers
+						ReadWrite = 1'b1;
+						address_select = 1'b0;
 					end
 			
 		endcase
 	end
-	// memory access block code here
-	// mostly case statements based on op code
-	// Will need a 16 bit 2x1 mux and a 32 bit 2x1 mux
 
 endmodule
 
