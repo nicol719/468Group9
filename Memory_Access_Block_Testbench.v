@@ -93,12 +93,12 @@ endmodule
 //--------------------------
 // Test 2 by 1 mux
 //--------------------------
-module test_mux_2by1;
+module test_mux2by1;
 	reg Select_t;
 	reg [31:0] In1_t, In2_t;
 	wire [31:0] Out_t;
 	
-	mux_2by1(Select_t, In1_t, In2_t, Out_t);
+	mux_2by1 testmux(Select_t, In1_t, In2_t, Out_t);
 	
 	initial
 	begin
