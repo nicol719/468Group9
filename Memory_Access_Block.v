@@ -150,5 +150,5 @@ module mux_2by1(Select, In1, In2, Out);
 	input [width-1:0] In1, In2;
 	output [width-1:0] Out; 
 
-	assign out = Select ? In1: In2;
+	assign Out = Select ? In1: In2;
 endmodule

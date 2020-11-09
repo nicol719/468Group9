@@ -110,4 +110,11 @@ module test_mux2by1;
 	#5 Select_t = 0; In1_t = 32'hAAAABBBB; In2_t = 32'hBBBBAAAA;
 	#5 Select_t = 1; In1_t = 32'hAAAABBBB; In2_t = 32'hBBBBAAAA;
 	end
-endmodule	
+
+
+	initial
+	begin
+	$monitor($time, " select =%d, in1 =%h, in2 =%h, Out =%h", Select_t, In1_t, In2_t, Out_t);
+	end
+endmodule
+	
