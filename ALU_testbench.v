@@ -39,12 +39,56 @@
 //==================
 // parameterized 32-bit right shift register that shifts the input by n-bit
 //=================
-//Code here
+module test_shift_left;
+	reg [31:0] source_1_t;
+	reg [4:0] number_bits_t;
+	wire [31:0] out_t;	
+	shift_left testshift(source_1_t, number_bits_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFFFFFF; number_bits_t = 0;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 1;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 2;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 3;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 31;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 32;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " source_1_t =%b, number_bits_t =%d, out =%b", source_1_t, number_bits_t, out_t);
+	end
+endmodule
 
 //==================
 // parameterized 32-bit left shift register that shifts the input by n-bit
 //=================
-//Code here
+module test_shift_right;
+	reg [31:0] source_1_t;
+	reg [4:0] number_bits_t;
+	wire [31:0] out_t;	
+	shift_right testshift(source_1_t, number_bits_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFFFFFF; number_bits_t = 0;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 1;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 2;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 3;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 31;
+	#5 source_1_t = 32'hFFFFFFFF; number_bits_t = 32;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " source_1_t =%b, number_bits_t =%d, out =%b", source_1_t, number_bits_t, out_t);
+	end
+endmodule
 
 //==================
 // parameterized 32-bit register that right rotates the input by n-bit

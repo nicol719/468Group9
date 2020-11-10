@@ -269,26 +269,27 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // parameterized 32-bit right shift register that shifts the input by n-bit
 // By GN
 //=================
-module shift_right(source_1, number_bits, out);
+// It says it should be a register, but I don't see why it would need to be or how a register would be any different
+module shift_right(source_1, number_bits, out); 
 	input [31:0] source_1;
 	input [4:0] number_bits; // 5-bit shift section from immediate value (see project discription)
 	output [31:0] out;
 	
-	if ((number_bits >= 1) && (number_bits <= 31)) // N-bits should always be between 1 and 31
-      begin
-        assign out = source_1 << number_bits;
-      end
-	 else
-		begin
-			assign out = z;
-		end
+    assign out = source_1 >> number_bits;   
 	
 endmodule
 
 //==================
 // parameterized 32-bit left shift register that shifts the input by n-bit
 //=================
-//Code here
+module shift_left(source_1, number_bits, out);
+	input [31:0] source_1;
+	input [4:0] number_bits; // 5-bit shift section from immediate value (see project discription)
+	output [31:0] out;
+	
+    assign out = source_1 << number_bits;   
+	
+endmodule
 
 //==================
 // parameterized 32-bit register that right rotates the input by n-bit
