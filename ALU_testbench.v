@@ -203,3 +203,26 @@ endmodule
 //================
 // Other small modules that cover the remaining functions of the 15-instruction set (such as MOV and LDR).
 //================
+
+//==================
+// LDR
+// No outpt is expected from ALU
+// By GN
+//=================
+
+module test_LDR;
+	wire [31:0] out_t;	
+	LDR testLDR(out_t);
+	
+	initial
+	begin
+	//Test cases
+	#5 ;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " out_t =%b",out_t);
+	end
+endmodule

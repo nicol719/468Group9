@@ -410,7 +410,17 @@ endmodule
 //================
 // Other small modules that cover the remaining functions of the 15-instruction set (such as MOV and LDR).
 //================
-  
+ 
+//==================
+// LDR
+// No outpt is expected from ALU
+// By GN
+//=================
+module LDR(out);
+	output [31:0] out;
+	assign out = 'z;
+endmodule
+
   //MOV
   
   //LDR
