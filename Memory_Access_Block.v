@@ -25,12 +25,12 @@
 module memory_access_block(data_in, data_out, read_write, address, LDR, source_1, source_2, alu_result, op_code, PC_instruction);
 	// Inputs
 	input [3:0] op_code;
-	input [31:0] PC_instruction;
+	input [15:0] PC_instruction;
 	input [31:0] source_1, source_2, alu_result, data_in;
 	
 	// Outputs
 	output reg read_write;
-	output [31:0] address;
+	output [15:0] address;
 	output [31:0] data_out, LDR;
 	
 	//Internal registers
@@ -43,7 +43,7 @@ module memory_access_block(data_in, data_out, read_write, address, LDR, source_1
 	
 	//muxs
 	mux_2by1 LDR_mux(LDR_select, alu_result, data_in, LDR);
-	mux_2by1 address_mux(address_select, source_1, PC_instruction, address);
+	mux_2by1 #(16) address_mux(address_select, source_1[15:0], PC_instruction, address);
 	
 	always @ (op_code)
 	begin

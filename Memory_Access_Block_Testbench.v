@@ -29,7 +29,7 @@ module test_memory_access_block;
 	reg [15:0] PC_instruction_t;
 	reg [31:0] source_1_t, source_2_t, ALU_result_t, data_in_t;
 	wire read_write_t;
-	wire [31:0] ram_address_t;
+	wire [15:0] ram_address_t;
 	wire [31:0] data_out_t, LDR_t;
 	
 	memory_access_block test_block(data_in_t, data_out_t, read_write_t, ram_address_t, LDR_t, source_1_t, source_2_t, ALU_result_t, op_code_t, PC_instruction_t);
@@ -43,50 +43,50 @@ module test_memory_access_block;
 	// Ram should stay in read mode (1)
 	// Don't care about ram_address
 	// Don't care about data_out
-	op_code_t = 4'b1111; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	op_code_t = 4'b1111; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
 	
 	// Write to ram op code
 	// LDR should be ALU_result (Z's should be passed from ALU)
 	// Ram should be in write mode (0)
 	// ram_address should be Source 1
 	// data_out should be Source 2
-	#5 op_code_t = 4'b1110; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1110; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hBBBBAAAA; source_2_t = 32'hCCCCBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1110; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hDDDDAAAA; source_2_t = 32'hDDDDBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1110; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAF; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1110; PC_instruction_t = 16'hDDDD; source_1_t = 32'hBBBBAAFA; source_2_t = 32'hCCCCBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1110; PC_instruction_t = 16'hDDDD; source_1_t = 32'hDDDDAFAA; source_2_t = 32'hDDDDBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
 	
 	// Read from ram op code
 	// LDR should be data_in
 	// Ram should stay in read mode (1)
 	// ram_address should be Source 1
 	// Don't care about data_out
-	#5 op_code_t = 4'b1101; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1101; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hBBBBAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEAAAA;
-	#5 op_code_t = 4'b1101; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hCCCCAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEBBBB;
+	#5 op_code_t = 4'b1101; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAF; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1101; PC_instruction_t = 16'hDDDD; source_1_t = 32'hBBBBAAFA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEAAAA;
+	#5 op_code_t = 4'b1101; PC_instruction_t = 16'hDDDD; source_1_t = 32'hCCCCAFAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEBBBB;
 	
 	// Compare op code (should be the same as do nothing op code)
 	// LDR should be ALU_result (Z's should be passed from ALU)
 	// Ram should stay in read mode (1)
 	// Don't care about ram_address
 	// Don't care about data_out
-	#5 op_code_t = 4'b1011; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1011; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCCCCCC; data_in_t = 32'hEEEEEEEE;
 	
 	// Rest of op codes (should be handled the same)
 	// ALU_result should be passed through LDR_t
 	// Ram should stay in read mode
 	// Don't care about ram_address
 	// Don't care about data_out
-	#5 op_code_t = 4'b0000; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0000; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0001; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0001; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0010; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0010; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0011; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0011; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0100; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0100; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0101; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0101; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0110; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0110; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b0111; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0111; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1000; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1000; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1001; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1001; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1010; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1010; data_in_t = 32'hEEEEEEEE;
-	#5 op_code_t = 4'b1100; PC_instruction_t = 32'hAAAAAAAA; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1100; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0000; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0000; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0001; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0001; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0010; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0010; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0011; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0011; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0100; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0100; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0101; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0101; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0110; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0110; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b0111; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC0111; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1000; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1000; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1001; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1001; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1010; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1010; data_in_t = 32'hEEEEEEEE;
+	#5 op_code_t = 4'b1100; PC_instruction_t = 16'hDDDD; source_1_t = 32'hAAAAAAAA; source_2_t = 32'hBBBBBBBB; ALU_result_t = 32'hCCCC1100; data_in_t = 32'hEEEEEEEE;
 	end	
 	
 	
