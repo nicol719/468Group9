@@ -87,6 +87,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	// Op code case statements live in the mux.
 	// I think we can run run all modules in parallel
 	// and then just mux the correct result based on opcode. -GN
+	
     if (OP_Code == 4'b0000)
       begin
         ///ADD module

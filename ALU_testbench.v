@@ -246,3 +246,96 @@ module test_NOP;
 	$monitor($time, " out_t =%b",out_t);
 	end
 endmodule
+
+//==================
+// MOV1
+// Initialize R1 with an immediate number n
+// By GN
+//=================
+
+module test_MOV1;
+	reg [15:0] immediate_value_t;
+	wire [31:0] out_t;	
+	MOV1 testMOV1(immediate_value_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	immediate_value_t = 16'h0000;
+	#5 immediate_value_t = 16'hABCD;
+	#5 immediate_value_t = 16'hDCAB;
+	end
+	initial
+	begin
+	$monitor($time, "immediate_value_t = %h, out_t =%h",immediate_value_t, out_t);
+	end
+endmodule
+
+//==================
+// MOV2
+// Send Source1 to memory access block so it can be loaded into the register
+// By GN
+//=================
+
+module test_MOV2;
+	reg [31:0] source_1_t;
+	wire [31:0] out_t;	
+	MOV2 testMOV2(source_1_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'h00000000;
+	#5 source_1_t = 32'hABCDABCD;
+	#5 source_1_t = 32'hDCABDCAB;
+	end
+	initial
+	begin
+	$monitor($time, "source_1_t = %h, out_t =%h",source_1_t, out_t);
+	end
+endmodule
+
+//==================
+// STR
+// No outpt is expected from ALU
+// By GN
+//=================
+
+module test_STR;
+	wire [31:0] out_t;	
+	STR testSTR(out_t);
+	
+	initial
+	begin
+	//Test cases
+	#5 ;
+	end
+	initial
+	begin
+	$monitor($time, " out_t =%b",out_t);
+	end
+endmodule
+
+//==================
+// ADR
+// Initialize R1 with an immediate address n
+// By GN
+//=================
+
+module test_ADR;
+	reg [15:0] immediate_value_t;
+	wire [31:0] out_t;	
+	ADR testADR(immediate_value_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	immediate_value_t = 16'h0000;
+	#5 immediate_value_t = 16'hABCD;
+	#5 immediate_value_t = 16'hDCAB;
+	end
+	initial
+	begin
+	$monitor($time, "immediate_value_t = %h, out_t =%h",immediate_value_t, out_t);
+	end
+endmodule
