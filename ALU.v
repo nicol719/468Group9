@@ -85,6 +85,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     //Use if statements to call modules, case does not work unlike in C languages
 	// If we wanted to use case statemets, we could mux all the submodules
 	// together and just change the mux select based on the OP_Code case.
+	// A 16-1 mux is one of the modules that describe on the alu design page.
 	// Similar to what I did in in the memory access block. -GN
     if (OP_Code == 4'b0000)
       begin
@@ -269,8 +270,19 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // By GN
 //=================
 module shift_right(source_1, number_bits, out);
+	input [31:0] source_1;
+	input [4:0] number_bits; // 5-bit shift section from immediate value (see project discription)
+	output [31:0] out;
 	
-
+	if ((number_bits >= 1) && (number_bits <= 31)) // N-bits should always be between 1 and 31
+      begin
+        assign out = source_1 << number_bits;
+      end
+	 else
+		begin
+			assign out = z;
+		end
+	
 endmodule
 
 //==================
