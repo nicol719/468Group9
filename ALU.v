@@ -421,9 +421,17 @@ module LDR(out);
 	assign out = 'z;
 endmodule
 
+//==================
+// NOP
+// No outpt is expected from ALU
+// By GN
+//=================
+module NOP(out);
+	output [31:0] out;
+	assign out = 'z;
+endmodule
+
   //MOV
-  
-  //LDR
   
   //NOP
   

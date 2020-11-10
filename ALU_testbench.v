@@ -219,8 +219,28 @@ module test_LDR;
 	//Test cases
 	#5 ;
 	end
+	
+	initial
+	begin
+	$monitor($time, " out_t =%b",out_t);
+	end
+endmodule
 
+//==================
+// NOP
+// No outpt is expected from ALU
+// By GN
+//=================
 
+module test_NOP;
+	wire [31:0] out_t;	
+	NOP testNOP(out_t);
+	
+	initial
+	begin
+	//Test cases
+	#5 ;
+	end
 	initial
 	begin
 	$monitor($time, " out_t =%b",out_t);
