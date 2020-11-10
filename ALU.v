@@ -321,9 +321,9 @@ module mux_16to1(
 				  EOR,  //Output of eor module
 				  MOV1, //Output of 1st move module
 				  MOV2, //Output of 2nd move module
-				  MOV3, //Output of 3rd move module
-				  MOV4, //Output of 4th move module
-				  MOV5, //Output of 5th move module
+				  LSR, //Output of right shift module
+				  LSL, //Output of left shift module
+				  ROR, //Output of rotate right module
 				  CMP,  //Output of cmp module
 				  ADR,  //Output of adr module
 				  LDR,  //Output of ldr module
@@ -331,11 +331,11 @@ module mux_16to1(
 				  NOP,  //Output of nop module
 				  out); //Is the result of the ALU
 	
-	input [31:0] ADD,SUB, MUL, ORR, AND, EOR, MOV1, MOV2, MOV3, MOV4, MOV5, CMP, ADR, LDR, STR, NOP;
+	input [31:0] ADD,SUB, MUL, ORR, AND, EOR, MOV1, MOV2, LSR, LSL, ROR, CMP, ADR, LDR, STR, NOP;
 	input [3:0] select;
 	output reg [31:0] out;
 	
-	always @ (select or ADD or SUB or MUL or ORR or AND or EOR or MOV1 or MOV2 or MOV3 or MOV4 or MOV5 or CMP or ADR or LDR or STR or NOP)
+	always @ (select or ADD or SUB or MUL or ORR or AND or EOR or MOV1 or MOV2 or LSR or LSL or ROR or CMP or ADR or LDR or STR or NOP)
 	begin
 		case (select)
 			4'b0000:begin //ADD
@@ -363,13 +363,13 @@ module mux_16to1(
 						out <= MOV2;
 					end
 			4'b1000:begin // MOV R1, R2, LSR #n
-						out <= MOV3;
+						out <= LSR;
 					end
 			4'b1001:begin // MOV R1, R2, LSL #n
-						out <= MOV4;
+						out <= LSL;
 					end
 			4'b1010:begin // MOV R1, R2, ROR #n
-						out <= MOV5;
+						out <= ROR;
 					end
 			4'b1011:begin // CMP R1, R2
 						out <= CMP;
@@ -431,10 +431,45 @@ module NOP(out);
 	assign out = 'z;
 endmodule
 
-  //MOV
+//==================
+// MOV1
+// Initialize R1 with an immediate number n
+// By GN
+//=================
+module MOV1(immediate_value, out);
+	input [15:0] immediate_value;
+	output [31:0] out;
+	assign out = immediate_value;
+endmodule
+
+//==================
+// MOV2
+// Send Source1 to memory access block so it can be loaded into the register
+// By GN
+//=================
+module MOV2(source_1, out);
+	input [31:0] source_1;
+	output [31:0] out;
+	assign out = source_1;
+endmodule
+
+//==================
+// STR
+// No outpt is expected from ALU
+// By GN
+//=================
+module STR(out);
+	output [31:0] out;
+	assign out = 'z;
+endmodule
   
-  //NOP
-  
-  //STR
-  
-  //ADR
+//==================
+// ADR
+// Initialize R1 with an immediate address n
+// By GN
+//=================
+module ADR(immediate_value, out);
+	input [15:0] immediate_value;
+	output [31:0] out;
+	assign out = immediate_value;
+endmodule
