@@ -309,8 +309,92 @@ endmodule
 
 //==================
 // A 32-line 16x1 Multiplexer (each input/output is an 32-bit wide)
+// By GN
 //=================
-//Code here
+module mux_16to1( 
+				  select,  //Select is OPCODE
+				  ADD,  //Output of add module
+				  SUB,  //Output of sub module
+				  MUL,  //Output of mul module
+				  ORR,  //Output of or module
+				  AND,  //Output of and module
+				  EOR,  //Output of eor module
+				  MOV1, //Output of 1st move module
+				  MOV2, //Output of 2nd move module
+				  MOV3, //Output of 3rd move module
+				  MOV4, //Output of 4th move module
+				  MOV5, //Output of 5th move module
+				  CMP,  //Output of cmp module
+				  ADR,  //Output of adr module
+				  LDR,  //Output of ldr module
+				  STR,  //Output of str module
+				  NOP,  //Output of nop module
+				  out); //Is the result of the ALU
+	
+	input [31:0] ADD,SUB, MUL, ORR, AND, EOR, MOV1, MOV2, MOV3, MOV4, MOV5, CMP, ADR, LDR, STR, NOP;
+	input [3:0] select;
+	output reg [31:0] out;
+	
+	always @ (select or ADD or SUB or MUL or ORR or AND or EOR or MOV1 or MOV2 or MOV3 or MOV4 or MOV5 or CMP or ADR or LDR or STR or NOP)
+	begin
+		case (select)
+			4'b0000:begin //ADD
+						out <= ADD;
+					end
+			4'b0001:begin // SUB R1, R2, R3
+						out <= SUB;
+					end
+			4'b0010:begin // MUL R1, R2, R3
+						out <= MUL;
+					end
+			4'b0011:begin // ORR R1, R2, R3
+						out <= ORR;
+					end
+			4'b0100:begin // AND R1, R2, R3
+						out <= AND;
+					end
+			4'b0101:begin // EOR R1, R2, R3
+						out <= EOR;
+					end
+			4'b0110:begin // MOV R1, n
+						out <= MOV1;
+					end
+			4'b0111:begin // MOV R1, R2
+						out <= MOV2;
+					end
+			4'b1000:begin // MOV R1, R2, LSR #n
+						out <= MOV3;
+					end
+			4'b1001:begin // MOV R1, R2, LSL #n
+						out <= MOV4;
+					end
+			4'b1010:begin // MOV R1, R2, ROR #n
+						out <= MOV5;
+					end
+			4'b1011:begin // CMP R1, R2
+						out <= CMP;
+					end
+			4'b1100:begin // ADR R1, n
+						out <= ADR;
+					end
+			4'b1101:begin // LDR R2, [R1]
+						out <= LDR;
+					end
+			4'b1110:begin // STR R2, [R1]
+						out <= STR;
+					end
+			4'b1111:begin // NOP
+						out <= NOP;					
+					end
+			default:begin
+						out <= NOP; //Should be fine to default to NOP
+					end
+			
+		endcase
+	end
+
+endmodule
+
 
 //==================
 // A module that checks the S-bit /CMP instruction and generates the 4-bit flag accordingly
