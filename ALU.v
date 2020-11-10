@@ -83,6 +83,9 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     output [3:0] flags; //4 flag bits order: N Z C V
     
     //Use if statements to call modules, case does not work unlike in C languages
+	// If we wanted to use case statemets, we could mux all the submodules
+	// together and just change the mux select based on the OP_Code case.
+	// Similar to what I did in in the memory access block. -GN
     if (OP_Code == 4'b0000)
       begin
         ///ADD module
@@ -263,8 +266,12 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 
 //==================
 // parameterized 32-bit right shift register that shifts the input by n-bit
+// By GN
 //=================
-//Code here
+module shift_right(source_1, number_bits, out);
+	
+
+endmodule
 
 //==================
 // parameterized 32-bit left shift register that shifts the input by n-bit
