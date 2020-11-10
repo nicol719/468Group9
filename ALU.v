@@ -83,10 +83,10 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     output [3:0] flags; //4 flag bits order: N Z C V
     
     //Use if statements to call modules, case does not work unlike in C languages
-	// If we wanted to use case statemets, we could mux all the submodules
-	// together and just change the mux select based on the OP_Code case.
-	// A 16-1 mux is one of the modules that describe on the alu design page.
-	// Similar to what I did in in the memory access block. -GN
+	
+	// Op code case statements live in the mux.
+	// I think we can run run all modules in parallel
+	// and then just mux the correct result based on opcode. -GN
     if (OP_Code == 4'b0000)
       begin
         ///ADD module
