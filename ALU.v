@@ -281,6 +281,7 @@ endmodule
 
 //==================
 // parameterized 32-bit left shift register that shifts the input by n-bit
+// By GN
 //=================
 module shift_left(source_1, number_bits, out);
 	input [31:0] source_1;
@@ -293,8 +294,18 @@ endmodule
 
 //==================
 // parameterized 32-bit register that right rotates the input by n-bit
+// By GN
 //=================
-//Code here
+module rotate_right(source_1, number_bits, out);
+	input [31:0] source_1;
+	input [4:0] number_bits; // 5-bit shift section from immediate value (see project discription)
+	output [31:0] out;
+	reg [63:0] tmp;
+	
+	assign tmp = {source_1, source_1} >> number_bits;
+    assign out = tmp[31:0];   
+	
+endmodule
 
 //==================
 // A 32-line 16x1 Multiplexer (each input/output is an 32-bit wide)

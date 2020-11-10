@@ -38,6 +38,7 @@
 
 //==================
 // parameterized 32-bit right shift register that shifts the input by n-bit
+// By GN
 //=================
 module test_shift_left;
 	reg [31:0] source_1_t;
@@ -65,6 +66,7 @@ endmodule
 
 //==================
 // parameterized 32-bit left shift register that shifts the input by n-bit
+// By GN
 //=================
 module test_shift_right;
 	reg [31:0] source_1_t;
@@ -92,8 +94,33 @@ endmodule
 
 //==================
 // parameterized 32-bit register that right rotates the input by n-bit
+// By GN
 //=================
-//Code here
+module test_rotate_right;
+	reg [31:0] source_1_t;
+	reg [4:0] number_bits_t;
+	wire [31:0] out_t;	
+	rotate_right testrotate(source_1_t, number_bits_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFF0000; number_bits_t = 0;
+	#5 source_1_t = 32'hFFFF0000; number_bits_t = 1;
+	#5 source_1_t = 32'h0000FFFF; number_bits_t = 1;
+	#5 source_1_t = 32'hFFFF0000; number_bits_t = 2;
+	#5 source_1_t = 32'h0000FFFF; number_bits_t = 2;
+	#5 source_1_t = 32'hFFFF0000; number_bits_t = 3;
+	#5 source_1_t = 32'hFFFF0000; number_bits_t = 31;
+	#5 source_1_t = 32'hFFFF0000; number_bits_t = 32;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " source_1_t =%b, number_bits_t =%d, out =%b", source_1_t, number_bits_t, out_t);
+	end
+endmodule
 
 //==================
 // A 32-line 16x1 Multiplexer (each input/output is an 32-bit wide)
