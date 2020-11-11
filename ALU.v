@@ -188,7 +188,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
   else if (conditional == 4'b0101)
     begin
       //Less than or equal to
-      source_1 =< source_2
+      source_1 <= source_2
     end
   else if (conditional == 4'b0110)
     begin
