@@ -56,3 +56,20 @@ wire [3:0] source_2_sel;
 assign source_2 = q[source_2_sel];				// if source_2_sel = 0000, output will be q[1] (in hex) and so forth
 
 endmodule
+
+
+// register bank
+
+input [15:0] decode_out;					// this is the enable for the register
+input [31:0] ldr_in;						// this is the load command from the LDR Mux
+output [31:0] q;
+reg [31:0] q;
+reg [31:0] mem [0:15];
+
+always @ (decode_out, ldr_in)
+begin
+case (decode_out)						// read individual registers from each enable (decode_out) value
+16’h0 : q = mem[ldr_in];
+16’h1 : q = mem[ldr_in];
+16’h2 : q = mem[ldr_in];
+
