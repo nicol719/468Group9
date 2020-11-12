@@ -1,0 +1,229 @@
+# Compile of ALU_alt.v was successful.
+# Compile of ALU_testbench.v was successful with warnings.
+# 2 compiles, 0 failed with no errors.
+vsim -gui work.test_ALU_alt
+# End time: 10:41:56 on Nov 12,2020, Elapsed time: 0:05:48
+# Errors: 0, Warnings: 2
+# vsim -gui work.test_ALU_alt 
+# Start time: 10:41:56 on Nov 12,2020
+# Loading work.test_ALU_alt
+# Loading work.ALU_alt
+# Loading work.shift_right
+# Loading work.shift_left
+# Loading work.rotate_right
+# Loading work.LDR
+# Loading work.NOP
+# Loading work.STR
+# Loading work.MOV1
+# Loading work.MOV2
+# Loading work.ADR
+# Loading work.mux_16to1
+run -all
+#                    0
+#  OPCode = xxxx
+# 
+#  Hex values:
+#  Source1 = xxxxxxxx
+#  Immediate Value = xxxx
+#  Result = zzzzzzzz
+# 
+#  Bin values:
+#  Source1 = xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#  Immediate Value = xxxxxxxxxxxxxxxx
+#  Result = zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+# -------------------------------------------
+#                   10
+#  OPCode = 1111
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = dcab
+#  Result = zzzzzzzz
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1101110010101011
+#  Result = zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+# -------------------------------------------
+#                   20
+#  OPCode = 1110
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = dcab
+#  Result = zzzzzzzz
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1101110010101011
+#  Result = zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+# -------------------------------------------
+#                   30
+#  OPCode = 1101
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = dcab
+#  Result = zzzzzzzz
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1101110010101011
+#  Result = zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+# -------------------------------------------
+#                   40
+#  OPCode = 1100
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = dcab
+#  Result = 0000dcab
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1101110010101011
+#  Result = 00000000000000001101110010101011
+# -------------------------------------------
+#                   50
+#  OPCode = 1100
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = abcd
+#  Result = 0000abcd
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1010101111001101
+#  Result = 00000000000000001010101111001101
+# -------------------------------------------
+#                   60
+#  OPCode = 0111
+# 
+#  Hex values:
+#  Source1 = abcdabcd
+#  Immediate Value = abcd
+#  Result = abcdabcd
+# 
+#  Bin values:
+#  Source1 = 10101011110011011010101111001101
+#  Immediate Value = 1010101111001101
+#  Result = 10101011110011011010101111001101
+# -------------------------------------------
+#                   70
+#  OPCode = 0111
+# 
+#  Hex values:
+#  Source1 = cdefcdef
+#  Immediate Value = abcd
+#  Result = cdefcdef
+# 
+#  Bin values:
+#  Source1 = 11001101111011111100110111101111
+#  Immediate Value = 1010101111001101
+#  Result = 11001101111011111100110111101111
+# -------------------------------------------
+#                   80
+#  OPCode = 0110
+# 
+#  Hex values:
+#  Source1 = cdefcdef
+#  Immediate Value = abcd
+#  Result = 0000abcd
+# 
+#  Bin values:
+#  Source1 = 11001101111011111100110111101111
+#  Immediate Value = 1010101111001101
+#  Result = 00000000000000001010101111001101
+# -------------------------------------------
+#                   90
+#  OPCode = 0110
+# 
+#  Hex values:
+#  Source1 = cdefcdef
+#  Immediate Value = dcab
+#  Result = 0000dcab
+# 
+#  Bin values:
+#  Source1 = 11001101111011111100110111101111
+#  Immediate Value = 1101110010101011
+#  Result = 00000000000000001101110010101011
+# -------------------------------------------
+#                  100
+#  OPCode = 1010
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0018
+#  Result = e0001fff
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000011000
+#  Result = 11100000000000000001111111111111
+# -------------------------------------------
+#                  110
+#  OPCode = 1010
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0028
+#  Result = f80007ff
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000101000
+#  Result = 11111000000000000000011111111111
+# -------------------------------------------
+#                  120
+#  OPCode = 1000
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0018
+#  Result = 00001fff
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000011000
+#  Result = 00000000000000000001111111111111
+# -------------------------------------------
+#                  130
+#  OPCode = 1000
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0028
+#  Result = 000007ff
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000101000
+#  Result = 00000000000000000000011111111111
+# -------------------------------------------
+#                  140
+#  OPCode = 1001
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0018
+#  Result = 0007fff8
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000011000
+#  Result = 00000000000001111111111111111000
+# -------------------------------------------
+#                  150
+#  OPCode = 1001
+# 
+#  Hex values:
+#  Source1 = 0000ffff
+#  Immediate Value = 0028
+#  Result = 001fffe0
+# 
+#  Bin values:
+#  Source1 = 00000000000000001111111111111111
+#  Immediate Value = 0000000000101000
+#  Result = 00000000000111111111111111100000
+# -------------------------------------------

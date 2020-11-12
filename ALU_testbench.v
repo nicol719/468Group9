@@ -25,6 +25,64 @@
 //================
 // Code here
 
+//================
+//ALU Alternate Main Module
+//================
+module test_ALU_alt;
+	reg [31:0] source_1_t, source_2_t;
+	reg [3:0] OP_Code_t, coditional_t;
+	reg [15:0] immediate_value_t;
+	reg S_t;
+	
+	wire [31:0] Result_t;
+	wire [3:0] flags_t;
+	
+	ALU_alt test_alu_alt(OP_Code_t, source_1_t,source_2_t,coditional_t,S_t,Result_t, flags_t,immediate_value_t);
+	
+	initial
+	begin
+	//Test cases. Not testing cases that use source_2_t or conditionals/flags yet
+	//Test do nothing op code. 1st result should be z's
+	#10 OP_Code_t = 4'b1111; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hDCAB;
+	//Test STR op code. 2nd result should be z's
+	#10 OP_Code_t = 4'b1110; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hDCAB;
+	//Test LDR op code. 3rd result should be z's
+	#10 OP_Code_t = 4'b1101; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hDCAB;
+	//Test ADR op code. 4th result should be immediate_value_t at 32 bits, so 32'h0000DCAB
+	#10 OP_Code_t = 4'b1100; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hDCAB;
+	//Test ADR when immediate_value_t changes. 5th result should be 32'h0000ABCD
+	#10 OP_Code_t = 4'b1100; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hABCD;
+	//Test MOV2 op code. 6th result should be source_1_t so 32'hABCDABCD
+	#10 OP_Code_t = 4'b0111; source_1_t = 32'hABCDABCD; immediate_value_t = 16'hABCD;
+	//Test changeign source_1_t. 7th result should be source_1_t so 32'hCDEFCDEF
+	#10 OP_Code_t = 4'b0111; source_1_t = 32'hCDEFCDEF; immediate_value_t = 16'hABCD;
+	//Test MOV1 op code. 8th result should be immediate_value_t so 32'h0000ABCD
+	#10 OP_Code_t = 4'b0110; source_1_t = 32'hCDEFCDEF; immediate_value_t = 16'hABCD;
+	//Test changing immediate value, 9th result 32'h0000DCAB
+	#10 OP_Code_t = 4'b0110; source_1_t = 32'hCDEFCDEF; immediate_value_t = 16'hDCAB;
+	// Test rotate_right OPcode. number of bits is immediate_value_t [7:2]
+	// So in this case, immediate_value_t should result in a 3 bit rotation
+	// 10th output should be source_1_t rotated by 3 bits so ??????
+	#10 OP_Code_t = 4'b1010; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000011000;
+	//11th output is a rotate by 5 bits so ????????
+	#10 OP_Code_t = 4'b1010; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000101000;
+	// Test shift right OP code. shift right 3 bits 12th result
+	#10 OP_Code_t = 4'b1000; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000011000;
+	// Test shift right OP code. shift right 5 bits 13th result
+	#10 OP_Code_t = 4'b1000; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000101000;
+	// Test shift left OP code. shift left 3 bits 14th result
+	#10 OP_Code_t = 4'b1001; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000011000;
+	// Test shift left OP code. shift left 5 bits 15th result
+	#10 OP_Code_t = 4'b1001; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000101000;
+	end
+
+
+	initial
+	begin
+	$monitor($time, "\n OPCode = %b\n\n Hex values:\n Source1 = %h\n Immediate Value = %h\n Result = %h\n\n Bin values:\n Source1 = %b\n Immediate Value = %b\n Result = %b\n-------------------------------------------", OP_Code_t,source_1_t,immediate_value_t,Result_t, source_1_t,immediate_value_t,Result_t);
+	end
+endmodule
+
 
 //==================
 // 32-bit adder
