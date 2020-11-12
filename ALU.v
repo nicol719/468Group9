@@ -279,26 +279,65 @@ endmodule // full_adder
 // 32-bit subtractor
 //=================
 //Code here
+module SUB(source_1, source_2, result); //Silverfish wrote this
+	input [31:0] source_1, source_2;
+	output [31:0] result;
+	
+	assign result = source_1 - source_2;
+	
+endmodule
 
 //==================
 // 32-bit multiplier
 //=================
 //Code here
+module MUL(source_1, source_2, result); //Silverfish
+	
+	input [31:0] source_1, source_2;
+	output [31:0] result;
+	
+	assign result = source_1 * source_2;
+	
+endmodule
 
 //==================
 // 32-bit bitwise ORing
 //=================
 //Code here
 
+module bit_OR(source_1, source_2, result); //Silverfish
+	
+	input [31:0] source_1, source_2;
+	output [31:0] result;
+	
+	assign result = source_1 | source_2;
+endmodule
+
 //==================
 // 32-bit bitwise ANDing
 //=================
 //Code here
+module bit_AND(source_1, source_2, result) //silverfish
+	
+	input [31:0] source_1, source_2;
+	output [31:0] result;
+	
+	assign result = source_1 & source_2;
+	
+endmodule
+	
 
 //==================
 // 32-bit bitwise XORing
 //=================
 //Code here
+module bit_XOR(source_1, source_2, result) //Silverfish
+	
+	input [31:0] source_1, source_2;
+	output [31:0] result;
+	
+	assign result = source_1 ^ source_2;
+endmodule
 
 //==================
 // parameterized 32-bit right shift register that shifts the input by n-bit
@@ -435,12 +474,66 @@ endmodule
 // A module that checks the S-bit /CMP instruction and generates the 4-bit flag accordingly
 //=================
 //Code here
+module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silverfish wrote this
+	input S, C, add, sub;
+	input [31:0] result_input, source_1, source_2; //the output from the module of choice
+	output [3:0] flags; //the flags in the order of N Z C V
+	
+	if (S)
+	begin
+		assign flags[1] = C;
+		
+		if (result_input[31] == 1)
+			flags[3] = 1;
+		if (|result_input == 0)
+			flags[2] = 1;
+		if(add) //overflow checks
+			begin
+				if(((source_1[31] == 0) && (source_2[31] == 0)) && result_input[31] == 1)
+					flags[0] = 1; //add two positives and get negative result
+				else if (((source_1[31] == 1) && (source_2[31] == 1)) && result_input[31] == 0)
+					flags[0] = 1; //add two negatives and get positive result
+				else
+					flags[0] = 0;
+			end
+		else if (sub)
+			begin
+				if(((source_1[31] == 1) && (source_2[31] == 0)) && result_input[31] == 0)
+					flags[0] = 1; //subtracting positive source 2 from negative source 1
+				else if (((source_1[31] == 0) && (source_2[31] == 1)) && result_input[31] == 1)
+					flags[0] = 1; //subtracting negative source2 from positive source 1 and getting a negative result
+				else
+					flags[0] = 0;
+			end
+		else
+			flags[0] = 0;
+	end
+	else
+		flags = 4'b0;
+endmodule
+				
+		
+		
+		
+	
+	
 
 //==================
 // 8-bit Counter (Program Counter (PC))
 //=================
-//Code here
-
+//this should update at the edge of the fetch cycle
+module program_counter(trigger, reset, count); //Silverfish wrote this
+	input trigger, reset;
+	output reg [7:0] count;
+	always @(trigger) //the trigger will be at the end of the instruction fetch which will increment this counter by 1
+		begin
+			if (!reset)
+				count <= 8'b0;
+			else
+				count <= count+1;
+		end
+endmodule
+		
 
 //================
 // Other small modules that cover the remaining functions of the 15-instruction set (such as MOV and LDR).
