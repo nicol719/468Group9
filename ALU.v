@@ -270,7 +270,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // 32-bit adder
 //=================
 //Code here
-module ADD_data ( output Result, input source_1, source_2 );
+module ADD(Result, source_1, source_2);
 	input [31:0] source_1, source_2;
 	output [31:0] Result;
 
