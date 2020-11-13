@@ -75,18 +75,49 @@
 module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, flags);
   
     input [31:0] source_1, source_2; //16 bit source registers 1 and 2
-    input [15:4] shift_bits; //immediate value or shift bits seems to so from 16 to 5 bits
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
+	input [15:0] immediate_value; //16 bits, used for 'n' operations 
     input S; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
-	output [7:0] count;
+    
     output [31:0] Result; //32 bit output
     output [3:0] flags; //4 flag bits order: N Z C V
-    
-    //Use if statements to call modules, case does not work unlike in C languages
 	
-	// Op code case statements live in the mux.
-	// I think we can run run all modules in parallel
-	// and then just mux the correct result based on opcode. -GN
+	//Submodule to mux wires
+	wire [31:0] out_shift_right, out_shift_left, out_rotate_right;
+	wire [31:0] out_LDR, out_NOP, out_STR;
+	wire [31:0] out_MOV1, out_MOV2, out_ADR;
+    
+    //Submodule calls
+	shift_right alu_shift_right(source_1,immediate_value[7:3],out_shift_right); //Rotate/shift only needs these 5 bits from immediate value
+	shift_left alu_shift_left(source_1,immediate_value[7:3],out_shift_left);
+	rotate_right alu_rotate_right(source_1, immediate_value[7:3], out_rotate_right);
+	LDR alu_LDR(out_LDR);
+	NOP alu_NOP(out_NOP);
+	STR alu_STR(out_STR);
+	MOV1 alu_MOV1(immediate_value, out_MOV1); // need entire immediate_value here
+	MOV2 alu_MOV2(source_1, out_MOV2);
+	ADR alu_ADR(immediate_value, out_ADR);
+	
+	//Mux Call
+	mux_16to1 alu_mux_16to1( 
+				  OP_Code,  //Select is OPCODE
+				  32'b0,  //Output of add module (set to 0s untill built)
+				  32'b0,  //Output of sub module (set to 0s untill built)
+				  32'b0,  //Output of mul module (set to 0s untill built)
+				  32'b0,  //Output of or module (set to 0s untill built)
+				  32'b0,  //Output of and module (set to 0s untill built)
+				  32'b0,  //Output of eor module (set to 0s untill built)
+				  out_MOV1, //Output of 1st move module
+				  out_MOV2, //Output of 2nd move module
+				  out_shift_right, //Output of right shift module
+				  out_shift_left, //Output of left shift module
+				  out_rotate_right, //Output of rotate right module
+				  32'b0,  //Output of cmp module (set to 0s untill built)
+				  out_ADR,  //Output of adr module
+				  out_LDR,  //Output of ldr module
+				  out_STR,  //Output of str module
+				  out_NOP,  //Output of nop module
+				  Result);  //ALU Result
 	
   /*  if (OP_Code == 4'b0000)
       begin
