@@ -129,12 +129,14 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     else if (OP_Code == 4'b0110)
       begin
         //MOV R1, n Initializes R1 with an immediate value of n
-	MOV source_1 #n;
+	module MOVE_data (input source_1);
+	assign source_1 = n;
+	endmodule
       end
     else if (OP_Code == 4'b0111)
       begin
         //MOV R1 R2 copy R2 into R1
-	MOV source_1, source_2;
+	module COPY_data (input source_2, output source_1)
       end
     else if (OP_Code == 4'b1000)
       begin
@@ -268,52 +270,14 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // 32-bit adder
 //=================
 //Code here
-module N_bit_adder(source_1,source_2,Result);
-parameter N=32;
-	input [N-1:0] source_1,source_2;
-	output [N-1:0] Result;
-   wire  carry_out;
-  wire [N-1:0] carry;
-   genvar i;
-   generate 
-   for(i=0;i<N;i=i+1)
-     begin: generate_N_bit_Adder
-   if(i==0) 
-	   half_adder f(source_1[0],source_2[0],Result[0],carry[0]);
-   else
-	   full_adder f(source_1[i],source_2[i],carry[i-1],Result[i],carry[i]);
-     end
-  assign carry_out = carry[N-1];
-   endgenerate
-endmodule 
-
-// Verilog code for half adder 
-module half_adder(x,y,s,c);
-   input x,y;
-   output s,c;
-   assign s=x^y;
-   assign c=x&y;
-endmodule // half adder
-
-// Verilog code for full adder 
-module full_adder(x,y,c_in,s,c_out);
-   input x,y,c_in;
-   output s,c_out;
- assign s = (x^y) ^ c_in;
- assign c_out = (y&c_in)| (x&y) | (x&c_in);
-endmodule // full_adder
-
-//==================
-// 32-bit subtractor
-//=================
-//Code here
-module SUB(source_1, source_2, result); //Silverfish wrote this
+module ADD_data ( output Result, input source_1, source_2 );
 	input [31:0] source_1, source_2;
-	output [31:0] result;
-	
-	assign result = source_1 - source_2;
-	
+	output [31:0] Result;
+
+       assign Result = source_1 + source_2;
 endmodule
+
+
 
 //==================
 // 32-bit multiplier
