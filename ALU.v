@@ -129,44 +129,50 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     else if (OP_Code == 4'b0110)
       begin
         //MOV R1, n Initializes R1 with an immediate value of n
-	MOV R1 #n;
+	MOV source_1 #n;
       end
     else if (OP_Code == 4'b0111)
       begin
         //MOV R1 R2 copy R2 into R1
-	MOV R1, R2;
+	MOV source_1, source_2;
       end
     else if (OP_Code == 4'b1000)
       begin
         //MOV R1 R2 LSR #n copy R2 into R1 shifted right by n
-	
+	MOV source_1, source_2, LSR #n;
       end
     else if (OP_Code == 4'b1001)
       begin
         //MOV R1 R2 LSL #n copy R2 into R1 shifted left by n
+	MOV source_1, source_2, LSL #n;
       end
     else if (OP_Code == 4'b1010)
       begin
         //MOV R1 R2 Rotated Right by n bits
+	MOV source_1, source_2, ROR #n;
       end
     else if (OP_Code == 4'b1011)
       begin
         //CMP R1 R2 compare R1 and R2 and set the status flags
-	loop CMP R1, R2
+	loop CMP source_1, source_2
+	      
     
         
       end
     else if (OP_Code == 4'b1100)
       begin
         //ADR R1 with a 16 bit address n
+	ADR source_1, #n;
       end
     else if (OP_Code == 4'b1101)
       begin
         //LDR R2 [R1] load R2 with the contents at memory address R1
+	LDR source_2, [source_1];
       end
     else if (OP_Code == 4'b1110)
       begin
         //STR R2, [R1] Store R2's contents at memory address R1
+	STR source_2, [source_1];
       end
     else if (OP_Code == 4'b1111)
       begin
@@ -258,10 +264,10 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // 32-bit adder
 //=================
 //Code here
-module N_bit_adder(input1,input2,answer);
+module N_bit_adder(source_1,source_2,Result);
 parameter N=32;
-input [N-1:0] input1,input2;
-   output [N-1:0] answer;
+	input [N-1:0] source_1,source_2;
+	output [N-1:0] Result;
    wire  carry_out;
   wire [N-1:0] carry;
    genvar i;
@@ -269,9 +275,9 @@ input [N-1:0] input1,input2;
    for(i=0;i<N;i=i+1)
      begin: generate_N_bit_Adder
    if(i==0) 
-  half_adder f(input1[0],input2[0],answer[0],carry[0]);
+	   half_adder f(source_1[0],source_2[0],Result[0],carry[0]);
    else
-  full_adder f(input1[i],input2[i],carry[i-1],answer[i],carry[i]);
+	   full_adder f(source_1[i],source_2[i],carry[i-1],Result[i],carry[i]);
      end
   assign carry_out = carry[N-1];
    endgenerate
