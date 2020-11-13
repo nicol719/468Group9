@@ -91,38 +91,55 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     if (OP_Code == 4'b0000)
       begin
         ///ADD module
+	ADD Result, source_1, source_2;
+	      
       end
     else if (OP_Code == 4'b0001)
       begin
         //SUB module
+	SUB Result, source_1, source_2;
       end
     else if (OP_Code == 4'b0010)
       begin
         //MUL module
+	MUL Result, source_1, source_2;
       end
     else if (OP_Code == 4'b0011)
       begin
         //ORR module
+	module OR_data ( output Result, input source_1, source_2 );
+	       assign Result = source_1 | source_2;
+	endmodule
+		
       end
     else if (OP_Code == 4'b0100)
       begin
         //AND module
+	module AND_data ( output Result, input source_1, source_2 );
+	       assign Result = source_1 & source_2;
+	endmodule
       end
     else if (OP_Code == 4'b0101)
       begin
         //EOR/XOR module
+	module XOR_data ( output Result, input source_1, source_2 );
+	       assign Result = source_1 ^ source_2;
+	endmodule
       end
     else if (OP_Code == 4'b0110)
       begin
         //MOV R1, n Initializes R1 with an immediate value of n
+	MOV R1 #n;
       end
     else if (OP_Code == 4'b0111)
       begin
         //MOV R1 R2 copy R2 into R1
+	MOV R1, R2;
       end
     else if (OP_Code == 4'b1000)
       begin
         //MOV R1 R2 LSR #n copy R2 into R1 shifted right by n
+	
       end
     else if (OP_Code == 4'b1001)
       begin
@@ -135,6 +152,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     else if (OP_Code == 4'b1011)
       begin
         //CMP R1 R2 compare R1 and R2 and set the status flags
+	loop CMP R1, R2
     
         
       end
