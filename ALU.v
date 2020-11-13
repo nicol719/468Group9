@@ -78,7 +78,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
     input [15:4] shift_bits; //immediate value or shift bits seems to so from 16 to 5 bits
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
     input S; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
-    
+	output [7:0] count;
     output [31:0] Result; //32 bit output
     output [3:0] flags; //4 flag bits order: N Z C V
     
@@ -88,28 +88,21 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	// I think we can run run all modules in parallel
 	// and then just mux the correct result based on opcode. -GN
 	
-    if (OP_Code == 4'b0000)
+  /*  if (OP_Code == 4'b0000)
       begin
         ///ADD module
-	module ADD_data ( output Result, input source_1, source_2 );
-		assign Result = source_1 + source_2;
-	endmodule
+	ADD Result, source_1, source_2;
 	      
       end
     else if (OP_Code == 4'b0001)
       begin
         //SUB module
-	module SUB_data ( output Result, input source_1, source_2 );
-	       assign Result = source_1 - source_2;
-	endmodule
+	SUB Result, source_1, source_2;
       end
     else if (OP_Code == 4'b0010)
       begin
         //MUL module
-	module MUL_data ( output Result, input source_1, source_2 );
-	       assign Result = source_1 * source_2;
-	endmodule
-	
+	MUL Result, source_1, source_2;
       end
     else if (OP_Code == 4'b0011)
       begin
@@ -250,7 +243,11 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
   else
     begin
       //dont care/error
-    end
+    end*/
+	
+	
+	
+	program_counter(1, 0, count); //count up counter
   
   
   
@@ -271,12 +268,40 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 // 32-bit adder
 //=================
 //Code here
-module ADD_data ( output Result, input source_1, source_2 );
-	input [31:0] source_1, source_2;
-	output [31:0] Result;
-        assign Result = source_1 + source_2;
-endmodule
-	      
+module N_bit_adder(source_1,source_2,Result);
+parameter N=32;
+	input [N-1:0] source_1,source_2;
+	output [N-1:0] Result;
+   wire  carry_out;
+  wire [N-1:0] carry;
+   genvar i;
+   generate 
+   for(i=0;i<N;i=i+1)
+     begin: generate_N_bit_Adder
+   if(i==0) 
+	   half_adder f(source_1[0],source_2[0],Result[0],carry[0]);
+   else
+	   full_adder f(source_1[i],source_2[i],carry[i-1],Result[i],carry[i]);
+     end
+  assign carry_out = carry[N-1];
+   endgenerate
+endmodule 
+
+// Verilog code for half adder 
+module half_adder(x,y,s,c);
+   input x,y;
+   output s,c;
+   assign s=x^y;
+   assign c=x&y;
+endmodule // half adder
+
+// Verilog code for full adder 
+module full_adder(x,y,c_in,s,c_out);
+   input x,y,c_in;
+   output s,c_out;
+ assign s = (x^y) ^ c_in;
+ assign c_out = (y&c_in)| (x&y) | (x&c_in);
+endmodule // full_adder
 
 //==================
 // 32-bit subtractor
