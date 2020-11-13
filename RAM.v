@@ -1,12 +1,12 @@
 //RAM section here
 //Read and write operations of memory. 
 // Memory size is 8 words of 16 bits each. 
-// TODO: Make ram 32 bits
+
 module memory (Enable,ReadWrite,Address,DataIn,DataOut);
 input  Enable,ReadWrite;
 	input [31:0] DataIn;  //Should be [31:0]
-	input [15:0] Address;  // Todo: match address to design requirements (I think it should be [15:0])
-output reg[15:0] DataOut; // [31:0]
+	input [15:0] Address;  
+	output reg[31:0] DataOut; // [31:0]
 reg [31:0] Mem [0:65535];     //8 x 16 memory -> reg [31:0] Mem [0:65535]; // 2^16 by 32 memory
 always @*
 	if (Enable)
