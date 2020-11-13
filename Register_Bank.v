@@ -27,7 +27,7 @@ case (dest_in)							              // creating all 16 combinations in Hexadecima
 4’b1101 : decode_out = 16’hD;
 4’b1110 : decode_out = 16’hE;
 4’b1111 : decode_out = 16’hF;
-default : decode_out = 16'h0; 				  // creating default input so latches are not created
+default : decode_out = 'z; 				  // creating default input so latches are not created
 endcase
 end
 endmodule
@@ -64,7 +64,7 @@ wire [31:0] q0, q1, q2, q3, q4, q5, q6, q7
 4’b1101 : source_1 = q13;
 4’b1110 : source_1 = q14;
 4’b1111 : source_1 = q15;
-default : source_1 = q0; 
+default : source_1 = 'z; 
     endcase
   end
 endmodule
@@ -102,7 +102,7 @@ wire [3:0] source_2_sel;
 4’b1101 : source_2 = q13;
 4’b1110 : source_2 = q14;
 4’b1111 : source_2 = q15;
-default : source_2 = q0; 
+default : source_2 = 'z;        
     endcase
   end
 endmodule
@@ -124,9 +124,9 @@ q8, q9, q10, q11, q12, q13, q14, q15;
 
 reg [31:0] mem [0:15];
 
-always @ (decode_out, ldr_in)
+  always @ (decode_out, ldr_in)
 begin
-case (decode_out)									            // read individual registers from each enable (decode_out) value
+  case (decode_out)									            // read individual registers from each enable (decode_out) value
 16’h0 : q0 = mem[ldr_in];
 16’h1 : q1 = mem[ldr_in];
 16’h2 : q2 = mem[ldr_in];
@@ -143,7 +143,7 @@ case (decode_out)									            // read individual registers from each ena
 16’hD : q13 = mem[ldr_in];
 16’hE : q14 = mem[ldr_in];
 16’hF : q15 = mem[ldr_in];
-  default : q0 = mem[ldr_in]; 
+  
 endcase
 end
 endmodule
