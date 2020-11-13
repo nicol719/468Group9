@@ -86,6 +86,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	wire [31:0] out_shift_right, out_shift_left, out_rotate_right;
 	wire [31:0] out_LDR, out_NOP, out_STR;
 	wire [31:0] out_MOV1, out_MOV2, out_ADR;
+	//Todo: add output wires for other modules
     
     //Submodule calls
 	shift_right alu_shift_right(source_1,immediate_value[7:3],out_shift_right); //Rotate/shift only needs these 5 bits from immediate value
@@ -97,6 +98,7 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	MOV1 alu_MOV1(immediate_value, out_MOV1); // need entire immediate_value here
 	MOV2 alu_MOV2(source_1, out_MOV2);
 	ADR alu_ADR(immediate_value, out_ADR);
+	//Todo: add other submodule calls
 	
 	//Mux Call
 	mux_16to1 alu_mux_16to1( 
