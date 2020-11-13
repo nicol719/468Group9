@@ -276,7 +276,17 @@ module ADD_data ( output Result, input source_1, source_2 );
 
        assign Result = source_1 + source_2;
 endmodule
+//==================
+ // 32-bit subtractor
+ //=================
+ //Code here
+ module SUB(source_1, source_2, result); //Silverfish wrote this
+ 	input [31:0] source_1, source_2;
+ 	output [31:0] result;
 
+ 	assign result = source_1 - source_2;
+
+ endmodule
 
 
 //==================
