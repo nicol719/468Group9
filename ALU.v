@@ -71,7 +71,7 @@
 //================
 //ALU Main Module
 //================
-// SILVERFISH SECTION
+
 module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result, flags);
   
     input [31:0] source_1, source_2; //16 bit source registers 1 and 2
@@ -225,10 +225,10 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
     else
       begin
         //retry perhaps? or perform a no operation? or print an error? this is here to prevent latching
-      end
+      end*/
     
   //Check conditional codes
-  
+  //silverfish and Ji
   if (conditional == 4'b0000)
     begin
       //No condition
@@ -287,7 +287,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
   else
     begin
       //dont care/error
-    end*/
+    end
 	
 	
 	
