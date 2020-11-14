@@ -1,6 +1,6 @@
 //Register Bank testbench by GN
 
-// Toplevel reg testbench
+// Toplevel reg testbench by GN
 module test_reg_bank_toplevel;
 	reg [3:0] destination;
 	reg [31:0] LDR_mux;
@@ -71,7 +71,7 @@ module test_reg_bank_toplevel;
 	end
 endmodule
 
-// Mux testbench
+// Mux testbench by GN
 module test_mux_16to1;
 	reg [31:0] q0, q1, q2, q3, q4, q5, q6, q7;
     reg [31:0] q8, q9, q10, q11, q12, q13, q14, q15;
@@ -138,7 +138,7 @@ module test_reg32;
 	end
 endmodule
 
-// Register bank testbench
+// Register bank testbench by GN
 module test_reg_bank;
 	reg en0, en1, en2, en3, en4, en5, en6, en7;
 	reg en8, en9, en10, en11, en12, en13, en14, en15;
@@ -170,7 +170,7 @@ module test_reg_bank;
 	end
 endmodule
 
-// Decoder Testbench
+// Decoder Testbench by GN
 module test_decoder4_16;
 	reg [3:0] dest_in;
 	wire en0, en1, en2, en3, en4, en5, en6, en7;

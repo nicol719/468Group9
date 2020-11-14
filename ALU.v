@@ -72,7 +72,7 @@
 //ALU Main Module
 //================
 // SILVERFISH SECTION
-module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, flags);
+module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result, flags);
   
     input [31:0] source_1, source_2; //16 bit source registers 1 and 2
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
@@ -86,6 +86,8 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	wire [31:0] out_shift_right, out_shift_left, out_rotate_right;
 	wire [31:0] out_LDR, out_NOP, out_STR;
 	wire [31:0] out_MOV1, out_MOV2, out_ADR;
+	wire [31:0] out_ADD, out_SUB, out_MUL;
+	wire [31:0] out_ORR, out_AND, out_XOR;
 	//Todo: add output wires for other modules
     
     //Submodule calls
@@ -98,17 +100,24 @@ module ALU (OP_Code, source_1, source_2, shift_bits, conditional, S, Result, fla
 	MOV1 alu_MOV1(immediate_value, out_MOV1); // need entire immediate_value here
 	MOV2 alu_MOV2(source_1, out_MOV2);
 	ADR alu_ADR(immediate_value, out_ADR);
-	//Todo: add other submodule calls
+	ADD alu_ADD(out_ADD, source_1, source_2);
+	SUB alu_SUB(source_1, source_2, out_SUB);
+	MUL alu_MUL(source_1, source_2, out_MUL);
+	bit_OR alu_bit_OR(source_1, source_2, out_ORR);
+	bit_AND alu_bit_AND(source_1, source_2, out_AND);
+	bit_XOR alu_bit_XOR(source_1, source_2, out_XOR);
+	//flag alu_flag(S, Result, ) // Need to figure this one out
+	
 	
 	//Mux Call
 	mux_16to1 alu_mux_16to1( 
 				  OP_Code,  //Select is OPCODE
-				  32'b0,  //Output of add module (set to 0s untill built)
-				  32'b0,  //Output of sub module (set to 0s untill built)
-				  32'b0,  //Output of mul module (set to 0s untill built)
-				  32'b0,  //Output of or module (set to 0s untill built)
-				  32'b0,  //Output of and module (set to 0s untill built)
-				  32'b0,  //Output of eor module (set to 0s untill built)
+				  out_ADD,  //Output of add module 
+				  out_SUB,  //Output of sub module 
+				  out_MUL,  //Output of mul module 
+				  out_ORR,  //Output of or module 
+				  out_AND,  //Output of and module 
+				  out_XOR,  //Output of eor module 
 				  out_MOV1, //Output of 1st move module
 				  out_MOV2, //Output of 2nd move module
 				  out_shift_right, //Output of right shift module
@@ -352,7 +361,7 @@ endmodule
 // 32-bit bitwise ANDing
 //=================
 //Code here
-module bit_AND(source_1, source_2, result) //silverfish
+module bit_AND(source_1, source_2, result); //silverfish
 	
 	input [31:0] source_1, source_2;
 	output [31:0] result;
@@ -366,7 +375,7 @@ endmodule
 // 32-bit bitwise XORing
 //=================
 //Code here
-module bit_XOR(source_1, source_2, result) //Silverfish
+module bit_XOR(source_1, source_2, result); //Silverfish
 	
 	input [31:0] source_1, source_2;
 	output [31:0] result;
@@ -513,6 +522,7 @@ module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silv
 	input S, C, add, sub;
 	input [31:0] result_input, source_1, source_2; //the output from the module of choice
 	output [3:0] flags; //the flags in the order of N Z C V
+	reg[3:0] flags;
 	
 	if (S)
 	begin

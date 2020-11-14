@@ -1,0 +1,435 @@
+vsim -gui work.test_reg_bank_toplevel
+# End time: 12:56:11 on Nov 14,2020, Elapsed time: 0:00:39
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_reg_bank_toplevel 
+# Start time: 12:56:11 on Nov 14,2020
+# Loading work.test_reg_bank_toplevel
+# Loading work.reg_bank_toplevel
+# Loading work.decoder4_16
+# Loading work.reg_bank
+# Loading work.reg32
+# Loading work.mux_16to1
+run -all
+#                    0
+# 
+# ldr_mux = 00000000
+# destination = 0
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                    5
+# 
+# ldr_mux = 00000000
+# destination = 1
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   10
+# 
+# ldr_mux = 11111111
+# destination = 1
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   15
+# 
+# ldr_mux = 11111111
+# destination = 2
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   20
+# 
+# ldr_mux = 22222222
+# destination = 2
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   25
+# 
+# ldr_mux = 22222222
+# destination = 3
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   30
+# 
+# ldr_mux = 33333333
+# destination = 3
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   35
+# 
+# ldr_mux = 33333333
+# destination = 4
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   40
+# 
+# ldr_mux = 44444444
+# destination = 4
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   45
+# 
+# ldr_mux = 44444444
+# destination = 5
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   50
+# 
+# ldr_mux = 55555555
+# destination = 5
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   55
+# 
+# ldr_mux = 55555555
+# destination = 6
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   60
+# 
+# ldr_mux = 66666666
+# destination = 6
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   65
+# 
+# ldr_mux = 66666666
+# destination = 7
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   70
+# 
+# ldr_mux = 77777777
+# destination = 7
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   75
+# 
+# ldr_mux = 77777777
+# destination = 8
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   80
+# 
+# ldr_mux = 88888888
+# destination = 8
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   85
+# 
+# ldr_mux = 88888888
+# destination = 9
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   90
+# 
+# ldr_mux = 99999999
+# destination = 9
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                   95
+# 
+# ldr_mux = 99999999
+# destination = a
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  100
+# 
+# ldr_mux = aaaaaaaa
+# destination = a
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  105
+# 
+# ldr_mux = aaaaaaaa
+# destination = b
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  110
+# 
+# ldr_mux = bbbbbbbb
+# destination = b
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  115
+# 
+# ldr_mux = bbbbbbbb
+# destination = c
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  120
+# 
+# ldr_mux = cccccccc
+# destination = c
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  125
+# 
+# ldr_mux = cccccccc
+# destination = d
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  130
+# 
+# ldr_mux = dddddddd
+# destination = d
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  135
+# 
+# ldr_mux = dddddddd
+# destination = e
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  140
+# 
+# ldr_mux = eeeeeeee
+# destination = e
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  145
+# 
+# ldr_mux = eeeeeeee
+# destination = f
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  150
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 0
+# source_2_sel = 0
+# source_1 = 00000000
+#  source_2 = 00000000
+# ------------------
+#                  155
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 0
+# source_2_sel = f
+# source_1 = 00000000
+#  source_2 = ffffffff
+# ------------------
+#                  160
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 1
+# source_2_sel = e
+# source_1 = 11111111
+#  source_2 = eeeeeeee
+# ------------------
+#                  165
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 2
+# source_2_sel = d
+# source_1 = 22222222
+#  source_2 = dddddddd
+# ------------------
+#                  170
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 3
+# source_2_sel = c
+# source_1 = 33333333
+#  source_2 = cccccccc
+# ------------------
+#                  175
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 4
+# source_2_sel = b
+# source_1 = 44444444
+#  source_2 = bbbbbbbb
+# ------------------
+#                  180
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 5
+# source_2_sel = a
+# source_1 = 55555555
+#  source_2 = aaaaaaaa
+# ------------------
+#                  185
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 6
+# source_2_sel = 9
+# source_1 = 66666666
+#  source_2 = 99999999
+# ------------------
+#                  190
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 7
+# source_2_sel = 8
+# source_1 = 77777777
+#  source_2 = 88888888
+# ------------------
+#                  195
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 8
+# source_2_sel = 7
+# source_1 = 88888888
+#  source_2 = 77777777
+# ------------------
+#                  200
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = 9
+# source_2_sel = 6
+# source_1 = 99999999
+#  source_2 = 66666666
+# ------------------
+#                  205
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = a
+# source_2_sel = 5
+# source_1 = aaaaaaaa
+#  source_2 = 55555555
+# ------------------
+#                  210
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = b
+# source_2_sel = 4
+# source_1 = bbbbbbbb
+#  source_2 = 44444444
+# ------------------
+#                  215
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = c
+# source_2_sel = 3
+# source_1 = cccccccc
+#  source_2 = 33333333
+# ------------------
+#                  220
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = d
+# source_2_sel = 2
+# source_1 = dddddddd
+#  source_2 = 22222222
+# ------------------
+#                  225
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = e
+# source_2_sel = 1
+# source_1 = eeeeeeee
+#  source_2 = 11111111
+# ------------------
+#                  230
+# 
+# ldr_mux = ffffffff
+# destination = f
+# source_1_sel = f
+# source_2_sel = 0
+# source_1 = ffffffff
+#  source_2 = 00000000
+# ------------------

@@ -1,0 +1,399 @@
+vsim -gui work.test_mux_16to1
+# End time: 12:51:09 on Nov 14,2020, Elapsed time: 0:01:45
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_mux_16to1 
+# Start time: 12:51:09 on Nov 14,2020
+# Loading work.test_mux_16to1
+# Loading work.mux_16to1
+run -all
+#                    0
+# 
+# source_sel = 0000
+# source_sel = 0 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 00000000
+# ------------------
+#                    5
+# 
+# source_sel = 0001
+# source_sel = 1 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 11111111
+# ------------------
+#                   10
+# 
+# source_sel = 0010
+# source_sel = 2 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 22222222
+# ------------------
+#                   15
+# 
+# source_sel = 0011
+# source_sel = 3 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 33333333
+# ------------------
+#                   20
+# 
+# source_sel = 0100
+# source_sel = 4 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 44444444
+# ------------------
+#                   25
+# 
+# source_sel = 0101
+# source_sel = 5 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 55555555
+# ------------------
+#                   30
+# 
+# source_sel = 0110
+# source_sel = 6 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 66666666
+# ------------------
+#                   35
+# 
+# source_sel = 0111
+# source_sel = 7 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 77777777
+# ------------------
+#                   40
+# 
+# source_sel = 1000
+# source_sel = 8 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 88888888
+# ------------------
+#                   45
+# 
+# source_sel = 1001
+# source_sel = 9 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = 99999999
+# ------------------
+#                   50
+# 
+# source_sel = 1010
+# source_sel = a 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = aaaaaaaa
+# ------------------
+#                   55
+# 
+# source_sel = 1011
+# source_sel = b 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = bbbbbbbb
+# ------------------
+#                   60
+# 
+# source_sel = 1100
+# source_sel = c 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = cccccccc
+# ------------------
+#                   65
+# 
+# source_sel = 1101
+# source_sel = d 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = dddddddd
+# ------------------
+#                   70
+# 
+# source_sel = 1110
+# source_sel = e 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = eeeeeeee
+# ------------------
+#                   75
+# 
+# source_sel = 1111
+# source_sel = f 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = ffffffff
+# 
+#  source = ffffffff
+# ------------------
+#                   80
+# 
+# source_sel = 1111
+# source_sel = f 
+# q0 = 00000000
+#  q1 = 11111111
+#  q2 = 22222222
+#  q3 = 33333333
+#  q4 = 44444444
+#  q5 = 55555555
+#  q6 = 66666666
+#  q7 = 77777777
+#  q8 = 88888888
+#  q9 = 99999999
+#  q10 = aaaaaaaa
+#  q11 = bbbbbbbb
+#  q12 = cccccccc
+#  q13 = dddddddd
+#  q14 = eeeeeeee
+#  q15 = 00000000
+# 
+#  source = 00000000
+# ------------------

@@ -1,0 +1,243 @@
+vsim -gui work.test_reg_bank
+# End time: 12:53:51 on Nov 14,2020, Elapsed time: 0:01:11
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_reg_bank 
+# Start time: 12:53:51 on Nov 14,2020
+# Loading work.test_reg_bank
+# Loading work.reg_bank
+# Loading work.reg32
+run -all
+#                    0
+# ldr_in = ffffffff
+# 
+#  en0 = 0
+#  en1 = 0
+#  en2 = 0
+#  en3 = 0
+#  en4 = 0
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = xxxxxxxx
+#  q1 = xxxxxxxx
+#  q2 = xxxxxxxx
+#  q3 = xxxxxxxx
+#  q4 = xxxxxxxx
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------
+#                    5
+# ldr_in = ffffffff
+# 
+#  en0 = 1
+#  en1 = 0
+#  en2 = 0
+#  en3 = 0
+#  en4 = 0
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = ffffffff
+#  q1 = xxxxxxxx
+#  q2 = xxxxxxxx
+#  q3 = xxxxxxxx
+#  q4 = xxxxxxxx
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------
+#                   10
+# ldr_in = eeeeeeee
+# 
+#  en0 = 0
+#  en1 = 1
+#  en2 = 0
+#  en3 = 0
+#  en4 = 0
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = ffffffff
+#  q1 = eeeeeeee
+#  q2 = xxxxxxxx
+#  q3 = xxxxxxxx
+#  q4 = xxxxxxxx
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------
+#                   15
+# ldr_in = dddddddd
+# 
+#  en0 = 0
+#  en1 = 0
+#  en2 = 1
+#  en3 = 0
+#  en4 = 0
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = ffffffff
+#  q1 = eeeeeeee
+#  q2 = dddddddd
+#  q3 = xxxxxxxx
+#  q4 = xxxxxxxx
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------
+#                   20
+# ldr_in = cccccccc
+# 
+#  en0 = 0
+#  en1 = 0
+#  en2 = 0
+#  en3 = 1
+#  en4 = 0
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = ffffffff
+#  q1 = eeeeeeee
+#  q2 = dddddddd
+#  q3 = cccccccc
+#  q4 = xxxxxxxx
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------
+#                   25
+# ldr_in = bbbbbbbb
+# 
+#  en0 = 0
+#  en1 = 0
+#  en2 = 0
+#  en3 = 0
+#  en4 = 1
+#  en5 = 0
+#  en6 = 0
+#  en7 = 0
+#  en8 = 0
+#  en9 = 0
+#  en10 = 0
+#  en11 = 0
+#  en12 = 0
+#  en13 = 0
+#  en14 = 0
+#  en15 = 0
+#  
+# 
+#  q0 = ffffffff
+#  q1 = eeeeeeee
+#  q2 = dddddddd
+#  q3 = cccccccc
+#  q4 = bbbbbbbb
+#  q5 = xxxxxxxx
+#  q6 = xxxxxxxx
+#  q7 = xxxxxxxx
+#  q8 = xxxxxxxx
+#  q9 = xxxxxxxx
+#  q10 = xxxxxxxx
+#  q11 = xxxxxxxx
+#  q12 = xxxxxxxx
+#  q13 = xxxxxxxx
+#  q14 = xxxxxxxx
+#  q15 = xxxxxxxx
+# 
+# ------------------

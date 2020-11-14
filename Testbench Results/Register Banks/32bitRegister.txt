@@ -1,0 +1,15 @@
+vsim -gui work.test_reg32
+# End time: 12:52:40 on Nov 14,2020, Elapsed time: 0:01:31
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_reg32 
+# Start time: 12:52:40 on Nov 14,2020
+# Loading work.test_reg32
+# Loading work.reg32
+run -all
+#                    0 data_in_t =ffffffff, en_t =0, q =xxxxxxxx
+#                    5 data_in_t =eeeeeeee, en_t =0, q =xxxxxxxx
+#                   10 data_in_t =ffffffff, en_t =1, q =ffffffff
+#                   15 data_in_t =ffffffff, en_t =0, q =ffffffff
+#                   20 data_in_t =aaaaaaaa, en_t =0, q =ffffffff
+#                   25 data_in_t =aaaaaaaa, en_t =1, q =aaaaaaaa
+

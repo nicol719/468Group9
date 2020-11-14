@@ -1,0 +1,107 @@
+vsim -gui work.test_memory_access_block
+# vsim -gui work.test_memory_access_block 
+# Start time: 13:00:37 on Nov 14,2020
+# Loading work.test_memory_access_block
+# Loading work.memory_access_block
+# Loading work.mux_2by1
+run -all
+#                    0
+# INPUTS:
+# op_code = 1111, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccccccc
+#                    5
+# INPUTS:
+# op_code = 1110, PCI = dddd, source_1 = aaaaaaaf, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 0, ram_address = aaaf, data_out = bbbbbbbb, LDR = cccccccc
+#                   10
+# INPUTS:
+# op_code = 1110, PCI = dddd, source_1 = bbbbaafa, source_2 = ccccbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 0, ram_address = aafa, data_out = ccccbbbb, LDR = cccccccc
+#                   15
+# INPUTS:
+# op_code = 1110, PCI = dddd, source_1 = ddddafaa, source_2 = ddddbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 0, ram_address = afaa, data_out = ddddbbbb, LDR = cccccccc
+#                   20
+# INPUTS:
+# op_code = 1101, PCI = dddd, source_1 = aaaaaaaf, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = aaaf, data_out = bbbbbbbb, LDR = eeeeeeee
+#                   25
+# INPUTS:
+# op_code = 1101, PCI = dddd, source_1 = bbbbaafa, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeeaaaa
+# outPUTS
+#  read_write = 1, ram_address = aafa, data_out = bbbbbbbb, LDR = eeeeaaaa
+#                   30
+# INPUTS:
+# op_code = 1101, PCI = dddd, source_1 = ccccafaa, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeebbbb
+# outPUTS
+#  read_write = 1, ram_address = afaa, data_out = bbbbbbbb, LDR = eeeebbbb
+#                   35
+# INPUTS:
+# op_code = 1011, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccccccc, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccccccc
+#                   40
+# INPUTS:
+# op_code = 0000, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0000, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0000
+#                   45
+# INPUTS:
+# op_code = 0001, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0001, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0001
+#                   50
+# INPUTS:
+# op_code = 0010, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0010, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0010
+#                   55
+# INPUTS:
+# op_code = 0011, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0011, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0011
+#                   60
+# INPUTS:
+# op_code = 0100, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0100, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0100
+#                   65
+# INPUTS:
+# op_code = 0101, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0101, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0101
+#                   70
+# INPUTS:
+# op_code = 0110, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0110, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0110
+#                   75
+# INPUTS:
+# op_code = 0111, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc0111, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc0111
+#                   80
+# INPUTS:
+# op_code = 1000, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc1000, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc1000
+#                   85
+# INPUTS:
+# op_code = 1001, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc1001, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc1001
+#                   90
+# INPUTS:
+# op_code = 1010, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc1010, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc1010
+#                   95
+# INPUTS:
+# op_code = 1100, PCI = dddd, source_1 = aaaaaaaa, source_2 = bbbbbbbb, ALU_result = cccc1100, data_in = eeeeeeee
+# outPUTS
+#  read_write = 1, ram_address = dddd, data_out = bbbbbbbb, LDR = cccc1100
