@@ -77,7 +77,8 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
     input [31:0] source_1, source_2; //16 bit source registers 1 and 2
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
 	input [15:0] immediate_value; //16 bits, used for 'n' operations 
-    input S; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
+    //cond_result is the output of a conditional statement for ease of passing to the flags module as result_input
+	input S, cond_result; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
     
     output [31:0] Result; //32 bit output
     output [3:0] flags; //4 flag bits order: N Z C V
@@ -228,61 +229,77 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
       end*/
     
   //Check conditional codes
+	//and set flags module flag(S, result_input, carry, source_1, source_2, add, sub, flags);
   //silverfish and Ji
   if (conditional == 4'b0000)
     begin
       //No condition
     end
-  else if (conditional == 4'b0001)
+	else if (conditional == 4'b0001)
     begin
       //Equal
-      source_1 = source_2;
+	   assign cond_result = (source_1 == source_2);
+	    
+	    flag(1, cond_result, 0, source_1, source_2, 0, 0, flags);
     end
   else if (conditional == 4'b0010)
     begin
       //Greater than
-      source_1 > source_2
+      assign cond_result = source_1 > source_2;
+	    flag(1, cond_result, 0, source_1, source_2, 0, 0, flags);
     end
   else if (conditional == 4'b0011)
     begin
       //Less than
-      source_1 < source_2;
+      assign cond_result = source_1 < source_2;
+	    flag(1, cond_result, 0, source_1, source_2, 0, 0, flags);
     end
   else if (conditional == 4'b0100)
     begin
       //Greater than or equal to
-      source_1 >= source_2
+     assign cond_result = source_1 >= source_2;
+	    flag(1, cond_result, 0, source_1, source_2, 0, 0, flags);
     end
   else if (conditional == 4'b0101)
     begin
       //Less than or equal to
-      source_1 =< source_2
+     assign cond_result = source_1 <= source_2;
+	    flag(1, cond_result, 0, source_1, source_2, 0, 0, flags);
     end
   else if (conditional == 4'b0110)
     begin
       //Unsigned higher
       if (source_1 - source_2 > 0)
         $unsigned(source_1);
+	    flag(1, source_1, 0, 0, source_2, 0, 0, flags); //source_1 is set as the result_input to check the flags on it
       else if (source_2 - source_1 > 0)
         $unsigned(source_2);
+	    flag(1, source_2, 0, source_1, 0, 0, 0, flags); //source_2 is set as the result_input
+	    
     end
   else if (conditional == 4'b0111)
     begin
       //unsigned lower
       if (source_1 - source_2 > 0)
         $unsigned(source_2);
+	    flag(1, source_2, 0, source_1, 0, 0, 0, flags); //source_2 is set as result_input
       else if (source_2 - source_1 > 0)
         $unsigned(source_1);
+	    flag(1, source_1, 0, 0, source_2, 0, 0, flags); //source_1 is set as result_input
     end
   else if (conditional == 4'b1000)
     begin
       //unsigned higher or same
       if (source_1 - source_2 > 0)
         $unsigned(source_1);
+	    flag(1, source_1, 0, 0, source_2, 0, 0, flags); //similar comment to above
       else if (source_2 - source_1 > 0)
         $unsigned(source_2);
+	    flag(1, source_2, 0, source_1, 0, 0, 0, flags); //similar comment to above
       else if (source_2 - source_1 = 0)
-        $unsigned(source_2, source_1);      
+        $unsigned(source_2, source_1);
+	    flag(1, source_2, 0, source_1, 0, 0, 0, flags); //since the two are unsigned higher/same, call two flag one for each
+	    flag(1, source_1, 0, 0, source_2, 0, 0, flags);
     end
   else
     begin
