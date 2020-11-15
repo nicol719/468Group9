@@ -326,10 +326,10 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
   
 
 //==================
-// 32-bit adder (Ji's part)
+// 32-bit adder
 //=================
 //Code here
-module ADD(Result, source_1, source_2);
+module ADD(Result, source_1, source_2);//Ji wrote this
 	input [31:0] source_1, source_2;
 	output [31:0] Result;
 
