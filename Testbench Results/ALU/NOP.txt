@@ -1,0 +1,10 @@
+vsim -gui work.test_NOP
+# End time: 08:55:02 on Nov 15,2020, Elapsed time: 0:01:32
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_NOP 
+# Start time: 08:55:02 on Nov 15,2020
+# Loading work.test_NOP
+# Loading work.NOP
+run -all
+#                    0 out_t =zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+

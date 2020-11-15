@@ -1,0 +1,12 @@
+vsim -gui work.test_MOV2
+# End time: 08:52:08 on Nov 15,2020, Elapsed time: 0:00:46
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_MOV2 
+# Start time: 08:52:08 on Nov 15,2020
+# Loading work.test_MOV2
+# Loading work.MOV2
+run -all
+#                    0source_1_t = 00000000, out_t =00000000
+#                    5source_1_t = abcdabcd, out_t =abcdabcd
+#                   10source_1_t = dcabdcab, out_t =dcabdcab
+

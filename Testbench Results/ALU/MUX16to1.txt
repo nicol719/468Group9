@@ -1,0 +1,118 @@
+vsim -gui work.test_mux_16to1
+# End time: 08:57:46 on Nov 15,2020, Elapsed time: 0:01:13
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_mux_16to1 
+# Start time: 08:57:46 on Nov 15,2020
+# Loading work.test_mux_16to1
+# Loading work.mux_16to1
+run -all
+#                    0
+# select_t = 0000
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000000
+# 
+#                    5
+# select_t = 0001
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000000f
+# 
+#                   10
+# select_t = 0010
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 000000f0
+# 
+#                   15
+# select_t = 0011
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 000000ff
+# 
+#                   20
+# select_t = 0100
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000f00
+# 
+#                   25
+# select_t = 0101
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000f0f
+# 
+#                   30
+# select_t = 0110
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000ff0
+# 
+#                   35
+# select_t = 0111
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000fff
+# 
+#                   40
+# select_t = 1000
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000f000
+# 
+#                   45
+# select_t = 1001
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000f00f
+# 
+#                   50
+# select_t = 1010
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000f0f0
+# 
+#                   55
+# select_t = 1011
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000f0ff
+# 
+#                   60
+# select_t = 1100
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000ff00
+# 
+#                   65
+# select_t = 1101
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000ff0f
+# 
+#                   70
+# select_t = 1110
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000fff0
+# 
+#                   75
+# select_t = 1111
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 0000ffff
+# 
+#                   80
+# select_t = 0000
+# ADD_t = a0000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = a0000000
+# 
+#                   85
+# select_t = 0000
+# ADD_t = b0000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = b0000000
+# 
+#                   90
+# select_t = 0000
+# ADD_t = c0000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = c0000000
+# 
+#                   95
+# select_t = 0000
+# ADD_t = 00000000, SUB_t = 0000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000000
+# 
+#                  100
+# select_t = 0000
+# ADD_t = 00000000, SUB_t = a000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000000
+# 
+#                  105
+# select_t = 0000
+# ADD_t = 00000000, SUB_t = b000000f, MUL_t = 000000f0, ORR_t = 000000ff, AND_t = 00000f00, EOR_t = 00000f0f, MOV1_t = 00000ff0, MOV2_t = 00000fff, MOV3_t = 0000f000, MOV4_t = 0000f00f, MOV5_t = 0000f0f0, CMP_t = 0000f0ff, ADR_t = 0000ff00, LDR_t = 0000ff0f, STR_t = 0000fff0, NOP_t = 0000ffff
+# out_t = 00000000
+# 

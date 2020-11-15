@@ -1,0 +1,33 @@
+vsim -gui work.test_MUL
+# End time: 09:21:26 on Nov 15,2020, Elapsed time: 0:04:09
+# Errors: 0, Warnings: 2
+# vsim -gui work.test_MUL 
+# Start time: 09:21:26 on Nov 15,2020
+# Loading work.test_MUL
+# Loading work.MUL
+run -all
+#                    0 
+# source_1_t =         5, 
+# source_2_t =         5, 
+# out =        25
+# -----------
+# 
+#                    5 
+# source_1_t =        75, 
+# source_2_t =         2, 
+# out =       150
+# -----------
+# 
+#                   10 
+# source_1_t =        12, 
+# source_2_t =        12, 
+# out =       144
+# -----------
+# 
+#                   15 
+# source_1_t =         7, 
+# source_2_t =         8, 
+# out =        56
+# -----------
+# 
+

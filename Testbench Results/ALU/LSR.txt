@@ -1,0 +1,15 @@
+vsim -gui work.test_shift_right
+# End time: 09:02:00 on Nov 15,2020, Elapsed time: 0:00:35
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_shift_right 
+# Start time: 09:02:00 on Nov 15,2020
+# Loading work.test_shift_right
+# Loading work.shift_right
+run -all
+#                    0 source_1_t =11111111111111111111111111111111, number_bits_t = 0, out =11111111111111111111111111111111
+#                    5 source_1_t =11111111111111111111111111111111, number_bits_t = 1, out =01111111111111111111111111111111
+#                   10 source_1_t =11111111111111111111111111111111, number_bits_t = 2, out =00111111111111111111111111111111
+#                   15 source_1_t =11111111111111111111111111111111, number_bits_t = 3, out =00011111111111111111111111111111
+#                   20 source_1_t =11111111111111111111111111111111, number_bits_t =31, out =00000000000000000000000000000001
+#                   25 source_1_t =11111111111111111111111111111111, number_bits_t = 0, out =11111111111111111111111111111111
+

@@ -1,0 +1,31 @@
+vsim -gui work.test_ADD
+# vsim -gui work.test_ADD 
+# Start time: 09:29:03 on Nov 15,2020
+# Loading work.test_ADD
+# Loading work.ADD
+run -all
+#                    0 
+# source_1_t =         5, 
+# source_2_t =         5, 
+# out =        10
+# -----------
+# 
+#                    5 
+# source_1_t =        75, 
+# source_2_t =         2, 
+# out =        77
+# -----------
+# 
+#                   10 
+# source_1_t =        12, 
+# source_2_t =        12, 
+# out =        24
+# -----------
+# 
+#                   15 
+# source_1_t =         7, 
+# source_2_t =         8, 
+# out =        15
+# -----------
+# 
+

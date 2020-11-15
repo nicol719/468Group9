@@ -1,0 +1,10 @@
+vsim -gui work.test_STR
+# End time: 08:50:06 on Nov 15,2020, Elapsed time: 0:01:46
+# Errors: 0, Warnings: 9
+# vsim -gui work.test_STR 
+# Start time: 08:50:06 on Nov 15,2020
+# Loading work.test_STR
+# Loading work.STR
+run -all
+#                    0 out_t =zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+

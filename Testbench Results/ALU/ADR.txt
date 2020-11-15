@@ -1,0 +1,9 @@
+vsim -gui work.test_ADR
+# vsim -gui work.test_ADR 
+# Start time: 08:48:20 on Nov 15,2020
+# Loading work.test_ADR
+# Loading work.ADR
+run -all
+#                    0immediate_value_t = 0000, out_t =00000000
+#                    5immediate_value_t = abcd, out_t =0000abcd
+#                   10immediate_value_t = dcab, out_t =0000dcab

@@ -1,0 +1,12 @@
+vsim -gui work.test_MOV1
+# End time: 08:53:30 on Nov 15,2020, Elapsed time: 0:01:22
+# Errors: 0, Warnings: 1
+# vsim -gui work.test_MOV1 
+# Start time: 08:53:30 on Nov 15,2020
+# Loading work.test_MOV1
+# Loading work.MOV1
+run -all
+#                    0immediate_value_t = 0000, out_t =00000000
+#                    5immediate_value_t = abcd, out_t =0000abcd
+#                   10immediate_value_t = dcab, out_t =0000dcab
+
