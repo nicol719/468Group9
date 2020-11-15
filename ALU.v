@@ -131,7 +131,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 				  out_NOP,  //Output of nop module
 				  Result);  //ALU Result
 	
-  /*  if (OP_Code == 4'b0000)
+	/*  if (OP_Code == 4'b0000) //silverfish deprecated code
       begin
         ///ADD module
 	ADD Result, source_1, source_2;
@@ -546,32 +546,32 @@ module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silv
 		assign flags[1] = C;
 		
 		if (result_input[31] == 1)
-			flags[3] = 1;
+			assign flags[3] = 1;
 		if (|result_input == 0)
-			flags[2] = 1;
+			assign flags[2] = 1;
 		if(add) //overflow checks
 			begin
 				if(((source_1[31] == 0) && (source_2[31] == 0)) && result_input[31] == 1)
-					flags[0] = 1; //add two positives and get negative result
+					assign flags[0] = 1; //add two positives and get negative result
 				else if (((source_1[31] == 1) && (source_2[31] == 1)) && result_input[31] == 0)
-					flags[0] = 1; //add two negatives and get positive result
+					assign flags[0] = 1; //add two negatives and get positive result
 				else
-					flags[0] = 0;
+					assign flags[0] = 0;
 			end
 		else if (sub)
 			begin
 				if(((source_1[31] == 1) && (source_2[31] == 0)) && result_input[31] == 0)
-					flags[0] = 1; //subtracting positive source 2 from negative source 1
+					assign flags[0] = 1; //subtracting positive source 2 from negative source 1
 				else if (((source_1[31] == 0) && (source_2[31] == 1)) && result_input[31] == 1)
-					flags[0] = 1; //subtracting negative source2 from positive source 1 and getting a negative result
+					assign flags[0] = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 				else
-					flags[0] = 0;
+					assign flags[0] = 0;
 			end
 		else
-			flags[0] = 0;
+			assign flags[0] = 0;
 	end
 	else
-		flags = 4'b0;
+		assign flags = 4'b0;
 endmodule
 				
 		
@@ -584,10 +584,10 @@ endmodule
 // 8-bit Counter (Program Counter (PC))
 //=================
 //this should update at the edge of the fetch cycle
-module program_counter(trigger, reset, count); //Silverfish wrote this
-	input trigger, reset;
+module program_counter(clock, reset, count); //Silverfish wrote this
+	input clock, reset;
 	output reg [7:0] count;
-	always @(trigger) //the trigger will be at the end of the instruction fetch which will increment this counter by 1
+	always @(posedge clock) //the trigger will be at the end of the instruction fetch which will increment this counter by 1
 		begin
 			if (!reset)
 				count <= 8'b0;
