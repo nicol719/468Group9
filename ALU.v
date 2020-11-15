@@ -124,7 +124,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 				  out_shift_right, //Output of right shift module
 				  out_shift_left, //Output of left shift module
 				  out_rotate_right, //Output of rotate right module
-				  32'b0,  //Output of cmp module (set to 0s untill built)
+				  32'bz,  //Output of cmp module no output required
 				  out_ADR,  //Output of adr module
 				  out_LDR,  //Output of ldr module
 				  out_STR,  //Output of str module

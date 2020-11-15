@@ -20,15 +20,14 @@
 // STR R2, [R1] 		Store R2 at memory address R1 									1110
 // NOP 					No Operation - Skip this instruction 							1111
 
-//================
-//ALU Main Module
-//================
-// Code here
+
 
 //================
-//ALU Alternate Main Module
+// Test
+//ALU Main Module
+// by GN
 //================
-module test_ALU_alt;
+module test_ALU;
 	reg [31:0] source_1_t, source_2_t;
 	reg [3:0] OP_Code_t, coditional_t;
 	reg [15:0] immediate_value_t;
@@ -37,7 +36,7 @@ module test_ALU_alt;
 	wire [31:0] Result_t;
 	wire [3:0] flags_t;
 	
-	ALU_alt test_alu_alt(OP_Code_t, source_1_t,source_2_t,coditional_t,S_t,Result_t, flags_t,immediate_value_t);
+	ALU test_alu(OP_Code_t, source_1_t,source_2_t,immediate_value_t,coditional_t,S_t,Result_t, flags_t);
 	
 	initial
 	begin
@@ -74,47 +73,187 @@ module test_ALU_alt;
 	#10 OP_Code_t = 4'b1001; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000011000;
 	// Test shift left OP code. shift left 5 bits 15th result
 	#10 OP_Code_t = 4'b1001; source_1_t = 32'h0000FFFF; immediate_value_t = 16'b0000000000101000;
+	// Test ADD for 16th result
+	#10 OP_Code_t = 4'b0000; source_1_t = 32'd5; source_2_t = 32'd6;
+	// Test SUB for 17th result
+	#10 OP_Code_t = 4'b0001; source_1_t = 32'd10; source_2_t = 32'd7;
+	// Test MUL for 18th result
+	#10 OP_Code_t = 4'b0010; source_1_t = 32'd7; source_2_t = 32'd8;
+	// Test OR for 19th result
+	#10 OP_Code_t = 4'b0011; source_1_t = 32'hFFFFFFFF; source_2_t = 32'h11111111;
+	//  Test AND for 20th resut
+	#10 OP_Code_t = 4'b0100; source_1_t = 32'h33333333; source_2_t = 32'h11111111;
+	// Test XOR for 21st result
+	#10 OP_Code_t = 4'b0101; source_1_t = 32'h33333333; source_2_t = 32'h11111111;
+	// Test CMP for 22nd result
+	#10 OP_Code_t = 4'b1011; source_1_t = 32'h33333333; source_2_t = 32'h11111111;
 	end
 
 
 	initial
 	begin
-	$monitor($time, "\n OPCode = %b\n\n Hex values:\n Source1 = %h\n Immediate Value = %h\n Result = %h\n\n Bin values:\n Source1 = %b\n Immediate Value = %b\n Result = %b\n-------------------------------------------", OP_Code_t,source_1_t,immediate_value_t,Result_t, source_1_t,immediate_value_t,Result_t);
+	$monitor($time, "\n OPCode = %b\n\n Hex values:\n Source1 = %h\n Source 2 = %h\n Immediate Value = %h\n Result = %h\n\n Bin values:\n Source1 = %b\n Source2 = %b\n Immediate Value = %b\n Result = %b\n-------------------------------------------", OP_Code_t,source_1_t,source_2_t,immediate_value_t,Result_t, source_1_t,source_2_t,immediate_value_t,Result_t);
 	end
 endmodule
 
 
 //==================
+// Test
 // 32-bit adder
+// By GN
 //=================
-//Code here
+module test_ADD;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	ADD testADD(out_t, source_1_t, source_2_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'd5; source_2_t = 32'd5;
+	#5 source_1_t = 32'd75; source_2_t = 32'd2;
+	#5 source_1_t = 32'd12; source_2_t = 32'd12;
+	#5 source_1_t = 32'd7; source_2_t = 32'd8;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%d, \nsource_2_t =%d, \nout =%d\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 
 //==================
+// Test
 // 32-bit subtractor
+// By GN
 //=================
-//Code here
+module test_SUB;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	SUB testSUB(source_1_t, source_2_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'd5; source_2_t = 32'd5;
+	#5 source_1_t = 32'd75; source_2_t = 32'd2;
+	#5 source_1_t = 32'd12; source_2_t = 32'd12;
+	#5 source_1_t = 32'd7; source_2_t = 32'd8;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%d, \nsource_2_t =%d, \nout =%d\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 
 //==================
+// Test
 // 32-bit multiplier
+// By GN
 //=================
-//Code here
+module test_MUL;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	MUL testMUL(source_1_t, source_2_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'd5; source_2_t = 32'd5;
+	#5 source_1_t = 32'd75; source_2_t = 32'd2;
+	#5 source_1_t = 32'd12; source_2_t = 32'd12;
+	#5 source_1_t = 32'd7; source_2_t = 32'd8;
+	end
 
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%d, \nsource_2_t =%d, \nout =%d\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 //==================
+// Test
 // 32-bit bitwise ORing
+// By GN
 //=================
-//Code here
+module test_bit_OR;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	bit_OR testOR(source_1_t, source_2_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFFFFFF; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hBBBBBBBB;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hCCCCCCCC;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%b, \nsource_2_t =%b, \nout =%b\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 
 //==================
+// Test
 // 32-bit bitwise ANDing
+// By GN
 //=================
-//Code here
+module test_bit_AND;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	bit_AND testAND(source_1_t, source_2_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFFFFFF; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hBBBBBBBB;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hCCCCCCCC;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%b, \nsource_2_t =%b, \nout =%b\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 
 //==================
+// Test
 // 32-bit bitwise XORing
+// By GN
 //=================
-//Code here
+module test_bit_XOR;
+	reg [31:0] source_1_t, source_2_t;
+	wire [31:0] out_t;	
+	bit_XOR testXOR(source_1_t, source_2_t, out_t);
+	
+	initial
+	begin
+	//Test cases
+	source_1_t = 32'hFFFFFFFF; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hAAAAAAAA;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hBBBBBBBB;
+	#5 source_1_t = 32'hEEEEEEEE; source_2_t = 32'hCCCCCCCC;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " \nsource_1_t =%b, \nsource_2_t =%b, \nout =%b\n-----------\n", source_1_t, source_2_t, out_t);
+	end
+endmodule
 
 //==================
+// Test
 // parameterized 32-bit right shift register that shifts the input by n-bit
 // By GN
 //=================
@@ -143,6 +282,7 @@ module test_shift_left;
 endmodule
 
 //==================
+// Test
 // parameterized 32-bit left shift register that shifts the input by n-bit
 // By GN
 //=================
@@ -171,6 +311,7 @@ module test_shift_right;
 endmodule
 
 //==================
+// Test
 // parameterized 32-bit register that right rotates the input by n-bit
 // By GN
 //=================
@@ -201,6 +342,7 @@ module test_rotate_right;
 endmodule
 
 //==================
+// Test
 // A 32-line 16x1 Multiplexer (each input/output is an 32-bit wide)
 // By GN
 //=================
@@ -263,6 +405,7 @@ endmodule
 //================
 
 //==================
+// Test
 // LDR
 // No outpt is expected from ALU
 // By GN
@@ -285,6 +428,7 @@ module test_LDR;
 endmodule
 
 //==================
+// Test
 // NOP
 // No outpt is expected from ALU
 // By GN
@@ -306,6 +450,7 @@ module test_NOP;
 endmodule
 
 //==================
+// Test
 // MOV1
 // Initialize R1 with an immediate number n
 // By GN
@@ -330,6 +475,7 @@ module test_MOV1;
 endmodule
 
 //==================
+// Test
 // MOV2
 // Send Source1 to memory access block so it can be loaded into the register
 // By GN
@@ -354,6 +500,7 @@ module test_MOV2;
 endmodule
 
 //==================
+// Test
 // STR
 // No outpt is expected from ALU
 // By GN
@@ -375,6 +522,7 @@ module test_STR;
 endmodule
 
 //==================
+// Test
 // ADR
 // Initialize R1 with an immediate address n
 // By GN
@@ -395,5 +543,37 @@ module test_ADR;
 	initial
 	begin
 	$monitor($time, "immediate_value_t = %h, out_t =%h",immediate_value_t, out_t);
+	end
+endmodule
+
+//==================
+// Test
+// 8-bit Counter
+// By GN
+//=================
+module test_program_counter;
+	reg trigger_t, reset_t;
+	wire [7:0] count_t;	
+	program_counter testCounter(trigger_t, reset_t, count_t);
+	
+	initial
+	begin
+	//Test cases
+	trigger_t = 1'b0; reset_t =1'b0;
+	#5 trigger_t = 1'b1; reset_t =1'b0;
+	#5 trigger_t = 1'b0; reset_t =1'b0;
+	#5 trigger_t = 1'b1; reset_t =1'b0;
+	#5 trigger_t = 1'b1; reset_t =1'b0;
+	#5 trigger_t = 1'b0; reset_t =1'b1;
+	#5 trigger_t = 1'b0; reset_t =1'b0;
+	#5 trigger_t = 1'b1; reset_t =1'b0;
+	#5 trigger_t = 1'b0; reset_t =1'b0;
+	#5 trigger_t = 1'b1; reset_t =1'b0;
+	end
+
+
+	initial
+	begin
+	$monitor($time, " count =%d\n-----------\n", count_t);
 	end
 endmodule
