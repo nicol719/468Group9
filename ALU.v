@@ -415,7 +415,7 @@ else
 //==================
 //CMP module
 //=================
-//by silverfish
+//by silverfish and Ji
 //this is attempting to replicate setting the flags using different 
 module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is essentially a CMP in ARM assembly
 	//this will set our flags based on properties of the sources equal not equal etc. this can then be used to quickly check when given the conditional bits
@@ -454,6 +454,7 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 	if (|temp == 0) //reduction operator to check if all zeroes
 		assign Z = 1;
 	else assign Z = 1;
+	// unsigned overflow code for the compare
 	if ((un_source_1[31] == 1) && temp_2[31] == 0)
 		assign C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
 	else if ((un_source_1[31] == 0) && temp_3[31] == 1)
