@@ -78,8 +78,9 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
     input [3:0] OP_Code, conditional; //op code and conditional flags at 4 bits each
 	input [15:0] immediate_value; //16 bits, used for 'n' operations 
     //cond_result is the output of a conditional statement for ease of passing to the flags module as result_input
-	input S, cond_result; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
-    
+	input S; //bit 23 of instruction, used as wanting a flag output from a non CMP operation
+    wire cond_result; //temporary variable for condition result
+    wire count; //for the program counter might need to be initialized		
     output [31:0] Result; //32 bit output
     output [3:0] flags; //4 flag bits order: N Z C V
 	
@@ -109,8 +110,83 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	bit_XOR alu_bit_XOR(source_1, source_2, out_XOR);
 	//flag alu_flag(S, Result, ) // Need to figure this one out
 	
+	//conditional checks
 	
+//4 flag bits order: N Z C V
+//here i am using the exact bits isntead of an overall value for the flags since the rest of the bits are not tested for the conditions
+	if (conditional == 4'b0001) //silverfish wrote this
+    begin
+      //Equal
+	    if (flags[2] == 1)
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+
+    end
+else if (conditional == 4'b0010)
+    begin
+      //Greater than
+	    if ((flags[2] = 0) && (flags[3] == flags[0])) //if Z==0 and N = V
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+      
+    end
+else if (conditional == 4'b0011)
+    begin
+      //Less than
+	    if (flags[3] != flags[0]) //N!=V
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+      
+    end
+else if (conditional == 4'b0100)
+    begin
+      //Greater than or equal to
+	    if (flags[3] == flags[0]) //N==V
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+     
+    end
+else if (conditional == 4'b0101)
+    begin
+      //Less than or equal to
+	    if ((flags[2] == 1) || (flags[3] != flags[0])) //Z=1 or N!=V
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+     
+    end
+else if (conditional == 4'b0110)
+    begin
+      //Unsigned higher
+	    if ((flags[1] == 1) && (flags[2] == 0)) //C=1 and Z=0
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+	    
+   
+    end
+else if (conditional == 4'b0111)
+    begin
+      //unsigned lower
+	    if (flags[1] == 0) //C=0
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+     
+    end
+else if (conditional == 4'b1000)
+    begin
+      //unsigned higher or same
+	    if (flags[1] == 1) //C=1
+		assign cond_result = 1;
+	    else assign cond_result = 0;
+    end    
+else
+    begin
+      assign cond_result = 1;
+    end
+	
+	
+	//TODO: we need to check conditional before executing this always since any instruction could have a condition put onto it although the first instruction will be clear 
 	//Mux Call
+if (count == 0);		      
 	mux_16to1 alu_mux_16to1( 
 				  OP_Code,  //Select is OPCODE
 				  out_ADD,  //Output of add module 
@@ -130,7 +206,17 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 				  out_STR,  //Output of str module
 				  out_NOP,  //Output of nop module
 				  Result);  //ALU Result
-	//CONDITIONAL CASE THING NEEDS TO GO SOMEWHERE
+	
+	
+			
+			
+	//Check for S flag and call CMP module afterwards to set flags
+	if (S == 1)
+		
+		CMP cmp1(source_1, source_2, flags);
+	else
+		assign S = 0; //just putting something here to fill in empty ELSE
+		
 	
 	
 	
@@ -311,7 +397,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	
 	
 	
-	program_counter(1, 0, count); //count up counter
+	program_counter pc1(1, 0, count); //count up counter
   
   
   
