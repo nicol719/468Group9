@@ -184,9 +184,10 @@ else
     end
 	
 	
-	//TODO: we need to check conditional before executing this always since any instruction could have a condition put onto it although the first instruction will be clear 
+	
 	//Mux Call
-if (count == 0);		      
+	if (cond_result == 1)
+		begin
 	mux_16to1 alu_mux_16to1( 
 				  OP_Code,  //Select is OPCODE
 				  out_ADD,  //Output of add module 
@@ -207,7 +208,9 @@ if (count == 0);
 				  out_NOP,  //Output of nop module
 				  Result);  //ALU Result
 	
-	
+		end
+	else
+		assign cond_result = 0; //default sets condition result back to zero
 			
 			
 	//Check for S flag and call CMP module afterwards to set flags
