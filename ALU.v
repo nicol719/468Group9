@@ -130,6 +130,9 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 				  out_STR,  //Output of str module
 				  out_NOP,  //Output of nop module
 				  Result);  //ALU Result
+	//CONDITIONAL CASE THING NEEDS TO GO SOMEWHERE
+	
+	
 	
 	/*  if (OP_Code == 4'b0000) //silverfish deprecated code
       begin
@@ -231,7 +234,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
   //Check conditional codes
 	//and set flags module flag(S, result_input, carry, source_1, source_2, add, sub, flags);
   //silverfish and Ji
-  if (conditional == 4'b0000)
+ /* if (conditional == 4'b0000)
     begin
       //No condition
     end
@@ -304,7 +307,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
   else
     begin
       //dont care/error
-    end
+    end*/
 	
 	
 	
@@ -320,7 +323,81 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
     
     
     endmodule
-    
+//==================
+//CMP module
+//=================
+//by silverfish
+//this is attempting to replicate setting the flags using different 
+module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is essentially a CMP in ARM assembly
+	//this will set our flags based on properties of the sources equal not equal etc. this can then be used to quickly check when given the conditional bits
+	
+	input [31:0] source_1, source_2;
+	wire N,Z,C,V; //these are temporary "variables"
+	wire temp; //temporary variable stored
+	output [3:0] NZCV; //the flags this is the order in which this 4 bit number will store them
+	//input [3:0] cond_code;
+	//this compares in the style of the CMP operator in ARM assembly
+	/*if (source_1 == source_2)
+		assign Z = 1;
+	else if (source_1 != source_2)
+		assign Z = 0;
+	else if (source_1 > source_2)
+		begin
+		//Assuming that our values is signed
+		assign Z = 0;
+		assign N = source_1 - source_2;
+		assign V = N;
+		end
+	else if (source_1 < source_2)
+		begin
+			assign N = source_1 - source_2; //compare seems to subtract the two values so it checks if resulting sign is 1(-) or 0(+)
+			assign V != N;
+		end*/
+	//based off actual ARM assembly it subtracts the two values temporarily then sets the flags, we can then use these flags to check the conditional codes are true or not above.
+	assign temp = source_1 - source_2;
+	
+	if (|temp == 0) //reduction operator to check if all zeroes
+		assign Z = 1;
+	else assign Z = 1;
+	if (//something for carry)
+		assign C = 1;
+	else assign C = 0;
+		
+	if (temp[31] = 1) //set negative bit
+		assign N = 1;
+	else assign N = 0;
+	//overflow code for the compare	
+	if(((source_1[31] == 1) && (source_2[31] == 0)) && temp[31] == 0)
+		assign V = 1; //subtracting positive source 2 from negative source 1
+	else if (((source_1[31] == 0) && (source_2[31] == 1)) && temp[31] == 1)
+		assign V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
+	else
+		assign V = 0;
+		
+		
+		
+	//output the flags as a 4 bit output	
+	assign NZCV = {N,Z,C,V};	
+		
+	
+	
+		
+	
+	
+	
+	
+	
+			
+			
+		
+	
+	
+		
+	
+				
+	
+		
+	       
     
     
   
@@ -535,7 +612,9 @@ endmodule
 // A module that checks the S-bit /CMP instruction and generates the 4-bit flag accordingly
 //=================
 //Code here
-module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silverfish wrote this
+		
+//DEPRECATED		
+/*module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silverfish wrote this
 	input S, C, add, sub;
 	input [31:0] result_input, source_1, source_2; //the output from the module of choice
 	output [3:0] flags; //the flags in the order of N Z C V
@@ -572,7 +651,7 @@ module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silv
 	end
 	else
 		assign flags = 4'b0;
-endmodule
+endmodule*/
 				
 		
 		
