@@ -201,7 +201,7 @@ else
 				  out_shift_right, //Output of right shift module
 				  out_shift_left, //Output of left shift module
 				  out_rotate_right, //Output of rotate right module
-				  32'bz,  //Output of cmp module no output required
+				  out_CMP,  //Output of cmp module no output required
 				  out_ADR,  //Output of adr module
 				  out_LDR,  //Output of ldr module
 				  out_STR,  //Output of str module
@@ -398,7 +398,7 @@ else
       //dont care/error
     end*/
 	
-	
+	//PROGRAM COUNTER CALL, increments at the end of the ALU module
 	
 	program_counter pc1(1, 0, count); //count up counter
   
@@ -711,7 +711,7 @@ endmodule
 //=================
 //Code here
 		
-//DEPRECATED		
+//DEPRECATED	- by silverfish	
 /*module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silverfish wrote this
 	input S, C, add, sub;
 	input [31:0] result_input, source_1, source_2; //the output from the module of choice
