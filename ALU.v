@@ -423,6 +423,9 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 	input [31:0] source_1, source_2;
 	wire N,Z,C,V; //these are temporary "variables"
 	wire temp; //temporary variable stored
+	wire temp_2;// temporary variable stored
+	wire temp_3;// temporary variable stored 
+	wire un_source_1, un_source_2; // temporary variable for unsigned value;
 	output [3:0] NZCV; //the flags this is the order in which this 4 bit number will store them
 	//input [3:0] cond_code;
 	//this compares in the style of the CMP operator in ARM assembly
@@ -443,13 +446,18 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 			assign V != N;
 		end*/
 	//based off actual ARM assembly it subtracts the two values temporarily then sets the flags, we can then use these flags to check the conditional codes are true or not above.
+	assign un_source_1 = $unsigned(source_1);
+	assign un_source_2 = $unsigned(source_2);
 	assign temp = source_1 - source_2;
-	
+	assign temp_2 = un_source_1 + un_source_2;
+	assign temp_3 = un_source_1 - un_source_2;
 	if (|temp == 0) //reduction operator to check if all zeroes
 		assign Z = 1;
 	else assign Z = 1;
-	if (//something for carry)
-		assign C = 1;
+	if ((un_source_1[31] == 1) && temp_2[31] == 0)
+		assign C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
+	else if ((un_source_1[31] == 0) && temp_3[31] == 1)
+		assign C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
 	else assign C = 0;
 		
 	if (temp[31] = 1) //set negative bit
