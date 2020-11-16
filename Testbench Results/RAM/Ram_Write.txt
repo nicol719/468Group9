@@ -1,0 +1,18 @@
+vsim -gui work.test_write_memory
+# End time: 16:30:26 on Nov 15,2020, Elapsed time: 0:04:19
+# Errors: 0, Warnings: 8
+# vsim -gui work.test_write_memory 
+# Start time: 16:30:26 on Nov 15,2020
+# Loading work.test_write_memory
+# Loading work.memory
+run -all
+#                    0data at address     0 is zzzzzzzz
+#                    5data at address     0 is aaaa0000
+#                   10data at address     1 is 00aa0000
+#                   15data at address     2 is 00bb0000
+#                   20data at address     3 is 00cc0000
+#                   25data at address     4 is 00dd0000
+#                   30data at address     5 is 00ee0000
+#                   35data at address     6 is 00ff0000
+#                   40data at address     7 is ffff0000
+

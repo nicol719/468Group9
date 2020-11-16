@@ -1,0 +1,7 @@
+vsim -gui work.test_read_memory
+# vsim -gui work.test_read_memory 
+# Start time: 16:26:07 on Nov 15,2020
+# Loading work.test_read_memory
+# Loading work.memory
+run -all
+
