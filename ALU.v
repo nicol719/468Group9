@@ -108,7 +108,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	bit_OR alu_bit_OR(source_1, source_2, out_ORR);
 	bit_AND alu_bit_AND(source_1, source_2, out_AND);
 	bit_XOR alu_bit_XOR(source_1, source_2, out_XOR);
-	//flag alu_flag(S, Result, ) // Need to figure this one out
+	CMP alu_CMP(source_1, source_2, out_CMP);
 	
 	//conditional checks
 	
@@ -201,7 +201,7 @@ else
 				  out_shift_right, //Output of right shift module
 				  out_shift_left, //Output of left shift module
 				  out_rotate_right, //Output of rotate right module
-				  out_CMP,  //Output of cmp module no output required
+				  out_CMP,  //Output of cmp module
 				  out_ADR,  //Output of adr module
 				  out_LDR,  //Output of ldr module
 				  out_STR,  //Output of str module
