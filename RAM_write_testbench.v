@@ -13,15 +13,15 @@ begin
 
   $readmemh("data_h.txt", ram.Mem);
 
-   enable =0;   ReadWrite=0;	Address=16'd0;	
-#5 enable =1;   ReadWrite=1;	Address=16'd0;	
-#5 enable =1;   ReadWrite=1;	Address=16'd1;	
-#5 enable =1;   ReadWrite=1;	Address=16'd2;	
-#5 enable =1;   ReadWrite=1;	Address=16'd3;	
-#5 enable =1;   ReadWrite=1;	Address=16'd4;	
-#5 enable =1;   ReadWrite=1;	Address=16'd5;	
-#5 enable =1;   ReadWrite=1;	Address=16'd6;	
-#5 enable =1;   ReadWrite=1;	Address=16'd7;	
+   enable =0;   ReadWrite=0;	Address=32'd0;	
+#5 enable =1;   ReadWrite=1;	Address=32'd0;	
+#5 enable =1;   ReadWrite=1;	Address=32'd1;	
+#5 enable =1;   ReadWrite=1;	Address=32'd2;	
+#5 enable =1;   ReadWrite=1;	Address=32'd3;	
+#5 enable =1;   ReadWrite=1;	Address=32'd4;	
+#5 enable =1;   ReadWrite=1;	Address=32'd5;	
+#5 enable =1;   ReadWrite=1;	Address=32'd6;	
+#5 enable =1;   ReadWrite=1;	Address=32'd7;	
 
 end
 

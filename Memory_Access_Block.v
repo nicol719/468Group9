@@ -22,8 +22,9 @@
 // by GN
 //Todo:
 // retest
-module memory_access_block(data_in, data_out, read_write, address, LDR, source_1, source_2, alu_result, op_code, PC_instruction);
+module memory_access_block(reset, data_in, data_out, read_write, address, LDR, source_1, source_2, alu_result, op_code, PC_instruction);
 	// Inputs
+	input reset;
 	input [3:0] op_code;
 	input [15:0] PC_instruction;
 	input [31:0] source_1, source_2, alu_result, data_in;
@@ -44,6 +45,15 @@ module memory_access_block(data_in, data_out, read_write, address, LDR, source_1
 	//muxs
 	mux_2by1 LDR_mux(LDR_select, alu_result, data_in, LDR);
 	mux_2by1 #(16) address_mux(address_select, source_1[15:0], PC_instruction, address);
+	
+	always @(negedge reset)
+	begin
+		if (!reset) 
+		begin
+			read_write = 1'b1; // Keep ram in read mode until we want to write to it.
+			address_select = 1'b0; //get address from pc access
+		end		
+	end
 	
 	always @ (op_code)
 	begin

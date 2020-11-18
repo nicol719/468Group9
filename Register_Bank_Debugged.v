@@ -22,9 +22,9 @@ module reg_bank_toplevel(destination, LDR_mux, source_1_sel, source_2_sel, sourc
 							en0, en1, en2, en3, en4, en5, en6, en7, en8, en9, en10, en11, en12, en13, en14, en15,
 							LDR_mux);
 	//++ mux gets duplicated here
-	mux_16to1 mux1(source_1, source_1_sel,
+	mux_16to1R mux1(source_1, source_1_sel,
 					q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15);
-	mux_16to1 mux2(source_2, source_2_sel,
+	mux_16to1R mux2(source_2, source_2_sel,
 					q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15);
 endmodule
 
@@ -34,7 +34,7 @@ endmodule
 
 // Multiplexer 1 taking select from Source 1
 //++ only need one 16to1 mux definition
-module mux_16to1(source_1, source_1_sel, q0, q1, q2, q3, q4, q5, q6, q7,
+module mux_16to1R(source_1, source_1_sel, q0, q1, q2, q3, q4, q5, q6, q7,
               q8, q9, q10, q11, q12, q13, q14, q15);		
 input [31:0] q0, q1, q2, q3, q4, q5, q6, q7;
 input [31:0] q8, q9, q10, q11, q12, q13, q14, q15;							            // q0-q15 is the output of the register bank, 16 registers of 32-bits each

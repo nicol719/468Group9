@@ -1,14 +1,14 @@
 // memory data file (do not edit the following line - required for mem load use)
-// instance=/CPU/RAM_CPU/Mem
+// instance=/_load_instructions/RAM_CPU/Mem
 // format=hex addressradix=h dataradix=h version=1.0 wordsperline=1 noaddress
-aaaa0000
-00aa0000
-00bb0000
-00cc0000
-00dd0000
-00ee0000
-00ff0000
-ffff0000
+06100028
+060800b0
+0e010800
+06180038
+00219000
+060800b8
+0e020800
+0f010800
 xxxxxxxx
 xxxxxxxx
 xxxxxxxx

@@ -1,5 +1,201 @@
 //==================
 // Test
+// CPU
+// By GN
+//=================
+module _CPU;
+	wire [15:0] address; //From MAB to RAM_CPU
+	wire read_write; // From MAB to RAM
+	wire [31:0] data_in; // From MAB to RAM
+	wire [31:0] data_out; // From RAM to MAB and State Machine
+
+	wire [31:0] source_1; // From RBT to ALU
+	wire [31:0] source_2; // From RBT to ALU
+
+	wire [31:0] result; // From ALU to MAB
+
+	wire [31:0] LDR; // From MAB to RBT
+
+	wire [15:0] PC_out; // From state machine to MAB
+
+	wire [3:0] flags;
+	
+	reg Enable, clk, reset;
+
+	//Break up instruction into components
+	wire [31:0] instruction; // From state machine
+	wire [3:0] condition;
+	wire [3:0] op_code;
+	wire s_bit;
+	wire [3:0] destination;
+	wire [3:0] source_2_sel;
+	wire [3:0] source_1_sel;
+	wire [15:0] immediate_value;
+	wire [1:0] current_state;
+
+	assign condition = instruction[31:28];
+	assign op_code = instruction[27:24];
+	assign s_bit = instruction[23];
+	assign destination = instruction[22:19];
+	assign source_2_sel = instruction[18:15];
+	assign source_1_sel = instruction[14:11];
+	assign immediate_value = instruction[18:3];
+
+	//Submodules
+
+	// TODO: Flags IO needs handling
+	ALU ALU_CPU(op_code, source_1, source_2, immediate_value, condition, s_bit, result, flags);
+
+	memory_access_block MAB_CPU(reset, data_out, data_in, read_write, address, LDR, source_1, source_2, result, op_code, PC_out);
+
+	reg_bank_toplevel RBT_CPU(destination, LDR, source_1_sel, source_2_sel, source_1, source_2);
+
+	// TODO: figure out how to handle enable
+	memory RAM_CPU(Enable,read_write,address,data_in, data_out);
+
+	state_machine SM_CPU(clk, reset, data_out, instruction, PC_out, current_state);
+	
+	initial
+	begin
+	$readmemh("load_ram.txt", RAM_CPU.Mem);
+	reset = 1; clk = 0; Enable = 0;
+	#5 reset = 0;
+	#5 reset = 1; Enable = 1;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	#5 clk = 1;
+	#5 clk = 0;
+	
+	#10
+	$writememh("ram_results.txt", RAM_CPU.Mem);
+	end
+	initial
+	begin
+	$monitor($time, "op_code = %b, result = %d, destination = %d, current_state = %d, PC_out = %d, instruction = %b, address = %d, data_out = %h, read_write = %b, source_1 = %b, source_2 = %b",op_code,result, destination, current_state, PC_out, instruction, address, data_out, read_write, source_1, source_2);
+	end
+endmodule
+
+
+//==================
+// Test
 // StateMachine
 // Initialize R1 with an immediate address n
 // By GN
@@ -10,7 +206,6 @@ module test_state_machine;
 	reg [31:0] instruction_in;
 	wire [31:0] instruction_out;
 	wire [15:0] PC_out;
-	wire [1:0] next_state, current_state;
 	
 	state_machine test_state_machine(clk, reset, instruction_in, instruction_out, PC_out, next_state, current_state);
 	
