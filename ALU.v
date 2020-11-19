@@ -448,7 +448,7 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 	//based off actual ARM assembly it subtracts the two values temporarily then sets the flags, we can then use these flags to check the conditional codes are true or not above.
 	assign un_source_1 = $unsigned(source_1);
 	assign un_source_2 = $unsigned(source_2);
-	assign temp = source_1 - source_2;
+	assign temp = source_1 + source_2;
 	assign temp_2 = un_source_1 + un_source_2;
 	assign temp_3 = un_source_1 - un_source_2;
 	if (|temp == 0) //reduction operator to check if all zeroes
@@ -465,9 +465,9 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 		assign N = 1;
 	else assign N = 0;
 	//overflow code for the compare	
-	if(((source_1[31] == 1) && (source_2[31] == 0)) && temp[31] == 0)
+	if(((source_1[31] == 1) && (source_2[31] == 1)) && temp[31] == 0)
 		assign V = 1; //subtracting positive source 2 from negative source 1
-	else if (((source_1[31] == 0) && (source_2[31] == 1)) && temp[31] == 1)
+	else if (((source_1[31] == 0) && (source_2[31] == 0)) && temp[31] == 1)
 		assign V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 	else
 		assign V = 0;
