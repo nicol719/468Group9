@@ -504,11 +504,18 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 // 32-bit adder
 //=================
 //Code here
-module ADD(Result, source_1, source_2);//Ji wrote this
+	module ADD(Result, source_1, source_2, S);//Ji wrote this
 	input [31:0] source_1, source_2;
 	output [31:0] Result;
 
        assign Result = source_1 + source_2;
+	
+	//Set flags particularly for this
+	if (S == 1)
+		//carry 
+	
+	
+	
 endmodule
 //==================
  // 32-bit subtractor
