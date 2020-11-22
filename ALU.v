@@ -80,7 +80,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
     //cond_result is the output of a conditional statement for ease of passing to the flags module as result_input
 	input S; //bit 23 of instruction, used as wanting a flag output from a non CMP operation
     wire cond_result; //temporary variable for condition result
-    wire count; //for the program counter might need to be initialized		
+	wire [7:0] count; //for the program counter might need to be initialized		
     output [31:0] Result; //32 bit output
     output [3:0] flags; //4 flag bits order: N Z C V
 	
@@ -108,7 +108,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	bit_OR alu_bit_OR(source_1, source_2, out_ORR);
 	bit_AND alu_bit_AND(source_1, source_2, out_AND);
 	bit_XOR alu_bit_XOR(source_1, source_2, out_XOR);
-	CMP alu_CMP(source_1, source_2, out_CMP);
+	CMP alu_CMP(source_1, source_2, OP_Code, out_CMP);
 	
 	//conditional checks
 	
@@ -216,7 +216,7 @@ else
 	//Check for S flag and call CMP module afterwards to set flags
 	if (S == 1)
 		
-		CMP cmp1(source_1, source_2, flags);
+		CMP cmp1(source_1, source_2, OP_Code, flags);
 	else
 		assign S = 0; //just putting something here to fill in empty ELSE
 		
@@ -417,15 +417,16 @@ else
 //=================
 //by silverfish and Ji
 //this is attempting to replicate setting the flags using different 
-module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is essentially a CMP in ARM assembly
+module CMP(source_1, source_2, OP_Code, NZCV); //also use if the S bit is true it is essentially a CMP in ARM assembly
 	//this will set our flags based on properties of the sources equal not equal etc. this can then be used to quickly check when given the conditional bits
 	
 	input [31:0] source_1, source_2;
 	wire N,Z,C,V; //these are temporary "variables"
-	wire temp; //temporary variable stored
-	wire temp_2;// temporary variable stored
-	wire temp_3;// temporary variable stored 
-	wire un_source_1, un_source_2; // temporary variable for unsigned value;
+	wire [31:0] temp, carry; //temporary variable stored
+	//wire overflow1, overflow2;
+	wire [31:0] temp_2;// temporary variable stored
+	wire [31:0] temp_3;// temporary variable stored 
+	wire [31:0] un_source_1, un_source_2; // temporary variable for unsigned value;
 	output [3:0] NZCV; //the flags this is the order in which this 4 bit number will store them
 	//input [3:0] cond_code;
 	//this compares in the style of the CMP operator in ARM assembly
@@ -448,12 +449,21 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 	//based off actual ARM assembly it subtracts the two values temporarily then sets the flags, we can then use these flags to check the conditional codes are true or not above.
 	assign un_source_1 = $unsigned(source_1);
 	assign un_source_2 = $unsigned(source_2);
-	assign temp = source_1 + source_2;
+	assign {carry,temp} = source_1 + source_2; //this should output the output and any carry is placed in carry
 	assign temp_2 = un_source_1 + un_source_2;
 	assign temp_3 = un_source_1 - un_source_2;
 	if (|temp == 0) //reduction operator to check if all zeroes
 		assign Z = 1;
 	else assign Z = 1;
+	
+	//Set the negative bit
+	if (temp[31] = 1) //set negative bit
+	assign N = 1;
+	else assign N = 0;
+	
+	//check if add operation
+	if (OP_Code != 0000) //0000 is the op code for ADD
+	begin 
 	// unsigned overflow code for the compare
 	if ((un_source_1[31] == 1) && temp_2[31] == 0)
 		assign C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
@@ -461,9 +471,8 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 		assign C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
 	else assign C = 0;
 		
-	if (temp[31] = 1) //set negative bit
-		assign N = 1;
-	else assign N = 0;
+	
+	
 	//overflow code for the compare	
 	if(((source_1[31] == 1) && (source_2[31] == 1)) && temp[31] == 0)
 		assign V = 1; //subtracting positive source 2 from negative source 1
@@ -471,8 +480,29 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 		assign V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 	else
 		assign V = 0;
+	end
+	
+	else
+	begin
+		//carry for addition
+		if (carry[0] == 1)
+			assign C = 1;
+		else assign C = 0;
+	
+		//overflow for addition
+		assign overflow1 = source_1[31]; //checks the sign bit
+		assign overflow2 = source_2[31];
+		if (overflow1 == 1 && overflow2 == 1 && temp[31] == 0)
+			assign V = 1;
+		else if (overflow1 == 0 && overflow2 == 0 && temp[31] == 1)
+			assign V = 1;
+		else 
+			assign V = 0;
 		
 		
+		
+			
+	end	
 		
 	//output the flags as a 4 bit output	
 	assign NZCV = {N,Z,C,V};	
@@ -504,15 +534,12 @@ module CMP(source_1, source_2, NZCV); //also use if the S bit is true it is esse
 // 32-bit adder
 //=================
 //Code here
-	module ADD(Result, source_1, source_2, S);//Ji wrote this
+	module ADD(Result, source_1, source_2);//Ji wrote this
 	input [31:0] source_1, source_2;
 	output [31:0] Result;
 
        assign Result = source_1 + source_2;
 	
-	//Set flags particularly for this
-	if (S == 1)
-		//carry 
 	
 	
 	
