@@ -475,9 +475,9 @@ module CMP(source_1, source_2, OP_Code, NZCV); //also use if the S bit is true i
 	
 	//overflow code for the compare	
 	if(((source_1[31] == 1) && (source_2[31] == 1)) && temp[31] == 0)
-		assign V = 1; //subtracting positive source 2 from negative source 1
+		assign V = 1; //adding two negative number but get positive result.
 	else if (((source_1[31] == 0) && (source_2[31] == 0)) && temp[31] == 1)
-		assign V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
+		assign V = 1; //adding two positive number but get negative result.
 	else
 		assign V = 0;
 	end
