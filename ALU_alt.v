@@ -612,7 +612,8 @@ module CMP(source_1, source_2, S, op_code, NZCV, out); //also use if the S bit i
 	input S;
 	input [3:0] op_code;
 	wire N,Z,C,V; //these are temporary "variables"
-	reg [31:0] temp; //temporary variable stored
+	reg [31:0] temp_add; //temporary variable stored
+	reg [31:0] temp_sub; 
 	reg [31:0] temp_2;// temporary variable stored
 	reg [31:0] temp_3;// temporary variable stored 
 	reg [31:0] un_source_1, un_source_2; // temporary variable for unsigned value;
@@ -622,22 +623,24 @@ module CMP(source_1, source_2, S, op_code, NZCV, out); //also use if the S bit i
 	
 	assign un_source_1 = $unsigned(source_1);
 	assign un_source_2 = $unsigned(source_2);
-	assign temp = source_1 - source_2; // I changed this to a minus to get it to work with example
+	assign temp_sub = source_1 - source_2; 
+	assign temp_add = source_1 + source_2;
 	assign temp_2 = un_source_1 + un_source_2;
 	assign temp_3 = un_source_1 - un_source_2;
 	
-	set_Z_flag Z_flag(source_1,source_2, Z);
-	set_C_flag C_flag(un_source_1[31], temp_2[31], temp_3[31], C);
-	set_N_flag N_flag(temp[31], N);
-	set_V_flag V_flag(source_1[31], source_2[31], temp[31], V);
+	set_Z_flag Z_flag(op_code, temp_add, temp_sub, Z);
+	set_C_flag C_flag(op_code, un_source_1[31], temp_2[31], temp_3[31], C);
+	set_N_flag N_flag(op_code, temp_add[31], temp_sub[31], N);
+	set_V_flag V_flag(source_1[31], source_2[31], temp_sub[31], V);
 	
+	// Only set flags when doing a compare or Sbit = 1
 	always @(Z or N or C or V or S or op_code)	
 	begin
-		if (op_code == 4'b1011) //cmp op code or S bit
+		if (op_code == 4'b1011) //cmp op code 
 		begin
 			NZCV <= {N,Z,C,V};	
 		end
-		if (S)
+		if (S) //or S bit
 		begin
 			NZCV <= {N,Z,C,V};	
 		end
@@ -652,17 +655,21 @@ endmodule
 //Set C flag module
 //=================
 //by silverfish and Ji
-module set_C_flag(source_1, temp_2, temp_3, C); //1st bit of source_1, temp_2 and temp_3
+module set_C_flag(op_code, source_1, temp_2, temp_3, C); //1st bit of source_1, temp_2 and temp_3
+input [3:0] op_code;
 input source_1, temp_2, temp_3;
 output C;
 reg C;
-always @ (source_1 or temp_2 or temp_3)
+always @ (source_1 or temp_2 or temp_3 or op_code)
 begin
-if (source_1 && !temp_2)
-	C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
-else if ((source_1 == 0'b1) && temp_3 == 1'b1)
-	C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
-else C = 0;
+if (op_code == 4'b0000) //Add operation
+	if (source_1 && !temp_2)
+		C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
+	else C = 0;
+else
+	if ((source_1 == 0'b1) && temp_3 == 1'b1)
+		C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
+	else C = 0;
 end
 endmodule
 
@@ -670,15 +677,21 @@ endmodule
 //Set N flag module
 //=================
 //by silverfish and Ji
-module set_N_flag(temp, N); // 1st bit of temp
-input temp;
+module set_N_flag(op_code, temp_add, temp_sub, N); // 1st bit of temp
+input [3:0] op_code;
+input temp_add, temp_sub;
 output N;
 reg N;
-always @(temp)
+always @(temp_add, temp_sub, op_code)
 begin
-	if (temp) //set negative bit
-		N = 1;
-	else N = 0;
+	if (op_code == 4'b0000) //Add operation
+		if (temp_add)
+			N = 1; //the addition of two numbers causes a zero result
+		else N = 0;
+	else //Subtract operation
+		if (temp_sub)
+			N = 1; // the subtraction of two numbers causes a zero result
+		else N = 0;
 end
 endmodule
 
@@ -686,15 +699,21 @@ endmodule
 //Set Z flag module
 //=================
 //by silverfish and Ji
-module set_Z_flag(source_1, source_2, Z); //all 32 bits of temp
-input [31:0] source_1, source_2;
+module set_Z_flag(op_code, temp_add, temp_sub, Z); //all 32 bits of temp
+input [31:0] temp_add, temp_sub;
+input [3:0] op_code;
 output Z;
 reg Z;
-always @(source_1, source_2)
+always @(temp_add, temp_sub, op_code)
 begin
-	if (source_1 == source_2) //check if equal
-		Z = 1;
-	else Z = 0;
+	if (op_code == 4'b0000) //Add operation
+		if (temp_add == 32'd0)
+			Z = 1; //the addition of two numbers causes a zero result
+		else Z = 0;
+	else //Subtract operation
+		if (temp_sub == 32'd0)
+			Z = 1; // the subtraction of two numbers causes a zero result
+		else Z = 0;
 end
 endmodule
 
@@ -702,16 +721,16 @@ endmodule
 //Set V flag module
 //=================
 //by silverfish and Ji
-module set_V_flag(source_1, source_2, temp, V); //1st bit of each
-input source_1, source_2, temp;
+module set_V_flag(source_1, source_2, temp_sub, V); //1st bit of each
+input source_1, source_2, temp_sub;
 output V;
 reg V;
-always @(source_1 or source_2 or temp)
+always @(source_1 or source_2 or temp_sub)
 begin
 //overflow code for the compare	
-	if(((source_1 == 1) && (source_2 == 1)) && temp == 0)
+	if(((source_1 == 1) && (source_2 == 1)) && temp_sub == 0)
 		V = 1; //subtracting positive source 2 from negative source 1
-	else if (((source_1 == 0) && (source_2 == 0)) && temp == 1)
+	else if (((source_1 == 0) && (source_2 == 0)) && temp_sub == 1)
 		V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 	else
 		V = 0;
