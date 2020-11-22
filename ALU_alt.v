@@ -81,7 +81,8 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	input S; // cond_result; //this might be sign bit when it is one the input is signed, it will set flags when it is equal to one (bit 23 of the instructions)
     
     output [31:0] Result; //32 bit output
-    output [3:0] flags; //4 flag bits order: N Z C V
+    output [3:0] flags;
+	wire [3:0] flags; //4 flag bits order: N Z C V
 	
 	//Submodule to mux wires
 	wire [31:0] out_shift_right, out_shift_left, out_rotate_right;
@@ -89,7 +90,8 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	wire [31:0] out_MOV1, out_MOV2, out_ADR;
 	wire [31:0] out_ADD, out_SUB, out_MUL;
 	wire [31:0] out_ORR, out_AND, out_XOR;
-	//Todo: add output wires for other modules
+	wire [31:0] out_CMP;
+	wire [31:0] unconditioned_result;
     
     //Submodule calls
 	shift_right alu_shift_right(source_1,immediate_value[7:3],out_shift_right); //Rotate/shift only needs these 5 bits from immediate value
@@ -107,7 +109,8 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 	bit_OR alu_bit_OR(source_1, source_2, out_ORR);
 	bit_AND alu_bit_AND(source_1, source_2, out_AND);
 	bit_XOR alu_bit_XOR(source_1, source_2, out_XOR);
-	//flag alu_flag(S, Result, ) // Need to figure this one out
+	CMP alu_CMP(source_1, source_2, S, OP_Code, flags, out_CMP);
+	condtion alu_condition(unconditioned_result, Result, conditional, flags);
 	
 	
 	//Mux Call
@@ -124,12 +127,13 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
 				  out_shift_right, //Output of right shift module
 				  out_shift_left, //Output of left shift module
 				  out_rotate_right, //Output of rotate right module
-				  32'bz,  //Output of cmp module no output required
+				  out_CMP,  //Output of cmp module
 				  out_ADR,  //Output of adr module
 				  out_LDR,  //Output of ldr module
 				  out_STR,  //Output of str module
 				  out_NOP,  //Output of nop module
-				  Result);  //ALU Result
+				  unconditioned_result);  //Unconditioned Result
+endmodule
 	
   /*  if (OP_Code == 4'b0000)
       begin
@@ -320,7 +324,7 @@ module ALU (OP_Code, source_1, source_2, immediate_value, conditional, S, Result
   */
     
     
-    endmodule
+    //endmodule
     
     
     
@@ -531,50 +535,189 @@ module mux_16to1A(
 
 endmodule
 
+//==================
+//Condition Module
+//=================
+// by Silverfish
+module condtion(result_in, result_out, condition, flags);
+input[31:0] result_in;
+input[3:0] condition;
+input[3:0] flags;
+output[31:0] result_out;
+reg[31:0] result_out;
+
+always @(result_in or condition or flags)
+begin
+	case (condition)
+		4'b0000:begin //No Condition
+					result_out <= result_in;
+				end
+		4'b0001:begin //Equal
+					if (flags[2] == 1)
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0010:begin //Greater than
+					if (flags[2] == 0 && flags[3] == flags[0]) //if Z==0 and N = V
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0011:begin //Less than
+					if (flags[3] != flags[0]) //N!=V
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0100:begin //Greater than or equal to
+					if (flags[3] == flags[0]) //N==V
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0101:begin //Less than or equal to
+					if ((flags[2] == 1) || (flags[3] != flags[0])) //Z=1 or N!=V
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0110:begin //Unsigned higher
+					if ((flags[1] == 1) && (flags[2] == 0)) //C=1 and Z=0
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b0111:begin //unsigned lower
+					if (flags[1] == 0) //C=0
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		4'b1000:begin //unsigned higher or same
+					if (flags[1] == 1) //C=1
+					result_out <= result_in;
+					else result_out <= 'z;
+				end
+		default:begin
+					result_out <= result_in;
+				end
+	endcase
+					
+end
+endmodule
 
 //==================
-// A module that checks the S-bit /CMP instruction and generates the 4-bit flag accordingly
+//CMP module
 //=================
-//Code here
-/*
-module flag(S, result_input, carry, source_1, source_2, add, sub, flags); //Silverfish wrote this
-	input S, C, add, sub;
-	input [31:0] result_input, source_1, source_2; //the output from the module of choice
-	output [3:0] flags; //the flags in the order of N Z C V
-	reg[3:0] flags;
+//by silverfish and Ji
+//this is attempting to replicate setting the flags using different 
+module CMP(source_1, source_2, S, op_code, NZCV, out); //also use if the S bit is true it is essentially a CMP in ARM assembly
+	//this will set our flags based on properties of the sources equal not equal etc. this can then be used to quickly check when given the conditional bits
 	
-	if (S)
+	input [31:0] source_1, source_2;
+	input S;
+	input [3:0] op_code;
+	wire N,Z,C,V; //these are temporary "variables"
+	reg [31:0] temp; //temporary variable stored
+	reg [31:0] temp_2;// temporary variable stored
+	reg [31:0] temp_3;// temporary variable stored 
+	reg [31:0] un_source_1, un_source_2; // temporary variable for unsigned value;
+	output [3:0] NZCV; //the flags Sthis is the order in which this 4 bit number will store them
+	reg [3:0] NZCV;
+	output [31:0] out;
+	
+	assign un_source_1 = $unsigned(source_1);
+	assign un_source_2 = $unsigned(source_2);
+	assign temp = source_1 - source_2; // I changed this to a minus to get it to work with example
+	assign temp_2 = un_source_1 + un_source_2;
+	assign temp_3 = un_source_1 - un_source_2;
+	
+	set_Z_flag Z_flag(source_1,source_2, Z);
+	set_C_flag C_flag(un_source_1[31], temp_2[31], temp_3[31], C);
+	set_N_flag N_flag(temp[31], N);
+	set_V_flag V_flag(source_1[31], source_2[31], temp[31], V);
+	
+	always @(Z or N or C or V or S or op_code)	
 	begin
-		assign flags[1] = C;
-		
-		if (result_input[31] == 1)
-			flags[3] = 1; //syntax error, unexpected '['.
-		if (|result_input == 0)
-			flags[2] = 1;
-		if(add) //overflow checks
-			begin
-				if(((source_1[31] == 0) && (source_2[31] == 0)) && result_input[31] == 1)
-					flags[0] = 1; //add two positives and get negative result
-				else if (((source_1[31] == 1) && (source_2[31] == 1)) && result_input[31] == 0)
-					flags[0] = 1; //add two negatives and get positive result
-				else
-					flags[0] = 0;
-			end
-		else if (sub)
-			begin
-				if(((source_1[31] == 1) && (source_2[31] == 0)) && result_input[31] == 0)
-					flags[0] = 1; //subtracting positive source 2 from negative source 1
-				else if (((source_1[31] == 0) && (source_2[31] == 1)) && result_input[31] == 1)
-					flags[0] = 1; //subtracting negative source2 from positive source 1 and getting a negative result
-				else
-					flags[0] = 0;
-			end
-		else
-			flags[0] = 0;
+		if (op_code == 4'b1011) //cmp op code or S bit
+		begin
+			NZCV <= {N,Z,C,V};	
+		end
+		if (S)
+		begin
+			NZCV <= {N,Z,C,V};	
+		end
 	end
+	
+	
+	assign out = 'z; // the Result value passed by ALU when running cmp 
+		
+endmodule
+
+//==================
+//Set C flag module
+//=================
+//by silverfish and Ji
+module set_C_flag(source_1, temp_2, temp_3, C); //1st bit of source_1, temp_2 and temp_3
+input source_1, temp_2, temp_3;
+output C;
+reg C;
+always @ (source_1 or temp_2 or temp_3)
+begin
+if (source_1 && !temp_2)
+	C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
+else if ((source_1 == 0'b1) && temp_3 == 1'b1)
+	C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
+else C = 0;
+end
+endmodule
+
+//==================
+//Set N flag module
+//=================
+//by silverfish and Ji
+module set_N_flag(temp, N); // 1st bit of temp
+input temp;
+output N;
+reg N;
+always @(temp)
+begin
+	if (temp) //set negative bit
+		N = 1;
+	else N = 0;
+end
+endmodule
+
+//==================
+//Set Z flag module
+//=================
+//by silverfish and Ji
+module set_Z_flag(source_1, source_2, Z); //all 32 bits of temp
+input [31:0] source_1, source_2;
+output Z;
+reg Z;
+always @(source_1, source_2)
+begin
+	if (source_1 == source_2) //check if equal
+		Z = 1;
+	else Z = 0;
+end
+endmodule
+
+//==================
+//Set V flag module
+//=================
+//by silverfish and Ji
+module set_V_flag(source_1, source_2, temp, V); //1st bit of each
+input source_1, source_2, temp;
+output V;
+reg V;
+always @(source_1 or source_2 or temp)
+begin
+//overflow code for the compare	
+	if(((source_1 == 1) && (source_2 == 1)) && temp == 0)
+		V = 1; //subtracting positive source 2 from negative source 1
+	else if (((source_1 == 0) && (source_2 == 0)) && temp == 1)
+		V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 	else
-		flags = 4'b0;
-endmodule*/
+		V = 0;
+end
+endmodule
+
 				
 		
 		

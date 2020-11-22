@@ -390,10 +390,61 @@ module test_mux_16to1;
 endmodule
 
 //==================
-// A module that checks the S-bit /CMP instruction and generates the 4-bit flag accordingly
+// Test
+// CMP
+// No outpt is expected from ALU
+// By GN
 //=================
-//Code here
 
+module test_CMP;
+	reg [31:0] source_1, source_2;
+	reg S;
+	reg [3:0] op_code;
+	wire [3:0] NZCV;
+	wire [31:0] out;	
+	CMP test_cmp(source_1, source_2, S, op_code, NZCV, out); 
+	
+	initial
+	begin
+	//Test cases
+	source_1 =32'd24; source_2 =32'd24; S = 1'b0; op_code = 4'b0000;
+	#5 source_1 =32'd24; source_2 =32'd24; S = 1'b1; op_code = 4'b0001;
+	#5 source_1 =32'd24; source_2 =32'd10; S = 1'b0; op_code = 4'b1011; 
+	#5 source_1 =32'd24; source_2 =32'd24; S = 1'b0; op_code = 4'b0110;
+	end
+	
+	initial
+	begin
+	$monitor($time, " op_code =%b, S = %b, flags = %b",op_code, S, NZCV);
+	end
+endmodule
+
+
+//==================
+// Test
+// Set Z flag
+// By GN
+//=================
+
+module test_set_Z_flag;
+	reg [31:0] source_1, source_2;
+	wire Z;
+	set_Z_flag test_set_Z_flag(source_1, source_2, Z); 
+	
+	initial
+	begin
+	//Test cases
+	source_1 =32'd24; source_2 =32'd24;
+	#5 source_1 =32'd24; source_2 =32'd23;
+	#5 source_1 =32'd22; source_2 =32'd24;
+	#5 source_1 =32'd21; source_2 =32'd21;
+	end
+	
+	initial
+	begin
+	$monitor($time, " source_1 =%b, source_2 = %b, Z = %b",source_1, source_2, Z);
+	end
+endmodule
 //==================
 // 8-bit Counter (Program Counter (PC))
 //=================

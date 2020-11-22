@@ -41,7 +41,7 @@ module _load_instructions;
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd7; ram_data_in = {4'b0, 4'b1111, 1'b0, 4'd0,4'd2,4'd1, 11'b0};
 	#10
 	
-	$writememh("load_ram.txt", RAM_CPU.Mem);
+	$writememb("load_ram.txt", RAM_CPU.Mem);
 	end
 	
 endmodule
