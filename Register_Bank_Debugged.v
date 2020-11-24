@@ -74,7 +74,7 @@ endmodule //mux_16to1
 
 
 // Multiplexer 2 taking select from Source 2
-
+/// fjdsghgokdsjfhg
 /*module mux_2 (source_2, source_2_sel, q0, q1, q2, q3, q4, q5, q6, q7
               q8, q9, q10, q11, q12, q13, q14, q15);		
 input [31:0] q0, q1, q2, q3, q4, q5, q6, q7
@@ -119,7 +119,7 @@ module reg32(en,q,data_in);
 	
 	always @ (en, data_in)
 	begin
-			if(en)
+			if(en && !(data_in === 'z))
 				q = data_in;
 	end
 endmodule //reg32
