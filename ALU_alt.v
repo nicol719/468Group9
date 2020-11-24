@@ -614,8 +614,8 @@ module CMP(source_1, source_2, S, op_code, NZCV, out); //also use if the S bit i
 	wire N,Z,C,V; //these are temporary "variables"
 	reg [31:0] temp_add; //temporary variable stored
 	reg [31:0] temp_sub; 
-	reg [31:0] temp_2;// temporary variable stored
-	reg [31:0] temp_3;// temporary variable stored 
+	reg [32:0] temp_2;// temporary variable stored
+	reg [32:0] temp_3;// temporary variable stored 
 	reg [31:0] un_source_1, un_source_2; // temporary variable for unsigned value;
 	output [3:0] NZCV; //the flags Sthis is the order in which this 4 bit number will store them
 	reg [3:0] NZCV;
@@ -625,13 +625,15 @@ module CMP(source_1, source_2, S, op_code, NZCV, out); //also use if the S bit i
 	assign un_source_2 = $unsigned(source_2);
 	assign temp_sub = source_1 - source_2; 
 	assign temp_add = source_1 + source_2;
-	assign temp_2 = un_source_1 + un_source_2;
-	assign temp_3 = un_source_1 - un_source_2;
+	assign temp_2 = source_1 + source_2;
+	assign temp_3 = source_1 - source_2;
+	//assign temp_2 = un_source_1 + un_source_2;
+	//assign temp_3 = un_source_1 - un_source_2;
 	
 	set_Z_flag Z_flag(op_code, temp_add, temp_sub, Z);
-	set_C_flag C_flag(op_code, un_source_1[31], temp_2[31], temp_3[31], C);
+	set_C_flag C_flag(op_code, un_source_1[31], temp_2[32], temp_3[32], C);
 	set_N_flag N_flag(op_code, temp_add[31], temp_sub[31], N);
-	set_V_flag V_flag(source_1[31], source_2[31], temp_sub[31], V);
+	set_V_flag V_flag(source_1[31], source_2[31], temp_add[31], V);
 	
 	// Only set flags when doing a compare or Sbit = 1
 	always @(Z or N or C or V or S or op_code)	
@@ -663,11 +665,11 @@ reg C;
 always @ (source_1 or temp_2 or temp_3 or op_code)
 begin
 if (op_code == 4'b0000) //Add operation
-	if (source_1 && !temp_2)
-		C = 1; //the addition of two numbers causes a carry out of the most significant (leftmost) bits added
+	if (temp_2) //add operation has overflowed
+		C = 1; //the addition of two negative numbers causes a carry out of the most significant (leftmost) bits added
 	else C = 0;
 else
-	if ((source_1 == 0'b1) && temp_3 == 1'b1)
+	if (temp_3) //sub operation requires a borrow
 		C = 1; // the subtraction of two numbers requires a borrow into the most significant (leftmost) bits subtracted.
 	else C = 0;
 end
@@ -721,16 +723,16 @@ endmodule
 //Set V flag module
 //=================
 //by silverfish and Ji
-module set_V_flag(source_1, source_2, temp_sub, V); //1st bit of each
-input source_1, source_2, temp_sub;
+module set_V_flag(source_1, source_2, temp_add, V); //1st bit of each
+input source_1, source_2, temp_add;
 output V;
 reg V;
-always @(source_1 or source_2 or temp_sub)
+always @(source_1 or source_2 or temp_add)
 begin
 //overflow code for the compare	
-	if(((source_1 == 1) && (source_2 == 1)) && temp_sub == 0)
+	if(((source_1 == 1) && (source_2 == 1)) && temp_add == 0)
 		V = 1; //subtracting positive source 2 from negative source 1
-	else if (((source_1 == 0) && (source_2 == 0)) && temp_sub == 1)
+	else if (((source_1 == 0) && (source_2 == 0)) && temp_add == 1)
 		V = 1; //subtracting negative source2 from positive source 1 and getting a negative result
 	else
 		V = 0;

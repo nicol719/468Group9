@@ -55,7 +55,10 @@ module _CPU;
 	
 	initial
 	begin
-	$readmemb("example.txt", RAM_CPU.Mem);
+	
+	//$readmemb("final_presentation.txt", RAM_CPU.Mem);
+	$readmemb("load_ram.txt", RAM_CPU.Mem);
+	//$readmemb("example.txt", RAM_CPU.Mem);
 	reset = 1; clk = 0; Enable = 0;
 	#5 reset = 0;
 	#5 reset = 1; Enable = 1;
@@ -187,7 +190,7 @@ module _CPU;
 	end
 	initial
 	begin
-	$monitor($time, "\n ---------- \n op_code = %b,\n result = %d,\n destination = %d,\n current_state = %d,\n PC_out = %d,\n instruction = %b,\n address = %d,\n data_out = %h,\n read_write = %b,\n source_1 = %b,\n source_2 = %b\n flags = %b",op_code,result, destination, current_state, PC_out, instruction, address, data_out, read_write, source_1, source_2, flags);
+	$monitor($time, "\n ============== \n Program Counter: %d\nINSTRUCTIONS:\n Instruction: %b\n Op_code: %b\n Conditional: %b\n S-bit %b\n\nREGISTERS:\n Source 1 Register: %d\n Source 2 Register: %d\n Result Register: %d\n\nDEC RESULTS:\n Source 1: %d\n Source 2: %d\n Result: %d\n\n Flags: %b\n\nBIN RESULTS\n Source 1: %b\n Source 2: %b\n Result: %b\n\nRAM:\n Read/Write: %b\n Address: %d\n",PC_out, instruction, op_code,condition,s_bit,source_1_sel,source_2_sel,destination,source_1,source_2,result,flags,source_1,source_2,result,read_write,address);
 	end
 endmodule
 

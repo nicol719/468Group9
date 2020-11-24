@@ -22,6 +22,8 @@ module _load_instructions;
 	//{condition, op_code, s_bit, destination, source_2_sel, source_1_sel, 11b'0}
 	//or
 	//{condition, op_code, s_bit, destination, immediate_value, 3b'0}
+	//or
+	//{condition, op_code, s_bit, destination, source_2_sel, source_1_sel, shift, 6b'0}
 	Enable = 0; ram_read_write = 0; ram_address = 16'd0; ram_data_in = 32'hAAAA0000;
 	// Load R2 with number 5
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd0; ram_data_in = {4'b0, 4'b0110, 1'b0, 4'd2,16'd5, 3'b0};
@@ -32,13 +34,26 @@ module _load_instructions;
 	// Load R3 with number 7
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd3; ram_data_in = {4'b0, 4'b0110, 1'b0, 4'd3,16'd7, 3'b0};
 	// Load R4 with R3 + R1
-	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd4; ram_data_in = {4'b0, 4'b0000, 1'b0, 4'd4,4'd3,4'd2, 11'b0};
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd4; ram_data_in = {4'b0, 4'b0000, 1'b1, 4'd4,4'd3,4'd2, 11'b0};
 	// Load R1 with number 23
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd5; ram_data_in = {4'b0, 4'b0110, 1'b0, 4'd1,16'd23, 3'b0};
 	// Write R4 to Ram address R1
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd6; ram_data_in = {4'b0, 4'b1110, 1'b0, 4'd0,4'd4,4'd1, 11'b0};
 	// Do Nothing
 	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd7; ram_data_in = {4'b0, 4'b1111, 1'b0, 4'd0,4'd2,4'd1, 11'b0};
+	// Load R7 with all ones
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd8; ram_data_in = {4'b0, 4'b0110, 1'b0, 4'd7,16'b1000000000000000, 3'b0};
+	// Load R8 with R7 shifted 15 bits
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd9; ram_data_in = {4'b0, 4'b1001, 1'b0, 4'd8,4'd7,4'd7, 5'd15,3'b0,3'b0};
+	// R9 = adds R8 adds itself
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd10; ram_data_in = {4'b0, 4'b0000, 1'b1, 4'd9,4'd8,4'd8, 11'b0};
+	// R13 = adds R9 itself
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd11; ram_data_in = {4'b0, 4'b0000, 1'b1, 4'd12,4'd9,4'd9, 11'b0};
+	// Load R10 with 0
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd12; ram_data_in = {4'b0, 4'b0110, 1'b0, 4'd10,16'd0, 3'b0};
+	// R11 = R10 - R8
+	#5 Enable = 1; ram_read_write = 0; ram_address = 16'd13; ram_data_in = {4'b0, 4'b0001, 1'b1, 4'd11,4'd10,4'd8, 11'b0};
+	// R12 = R11 + R8 (should overflow)
 	#10
 	
 	$writememb("load_ram.txt", RAM_CPU.Mem);
